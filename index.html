@@ -636,6 +636,10 @@ color:#158cff;
 
 }
 
+body.dark #loaderText{
+    color:#79d9ff;
+}
+
 /*==========================*/
 
 @keyframes floatLogo{
@@ -1176,7 +1180,7 @@ src="https://unpkg.com/es-module-shims@1.10.0/dist/es-module-shims.js">
 
 </head>
 
-<body>
+<body class="dark">
 
 <!--==============================-->
 
@@ -1240,7 +1244,7 @@ Buy
 
 </div>
 
-<div id="themeToggle">🌙</div>
+<div id="themeToggle">☀️</div>
 
 </nav>
 
@@ -1973,7 +1977,7 @@ window.location.href = "buy.html";
 
 };
 
-let darkMode = false;
+let darkMode = true;
 /*=========================*/
 
 function animate(){
@@ -2256,6 +2260,15 @@ camera
 );
 
 }
+groundMaterial.color.set(0x050505);
+renderer.setClearColor(0x03060a, 0);
+
+hemi.intensity = 0.45;
+sun.intensity = 1.4;
+rim.intensity = 2.8;
+glow.intensity = 12;
+
+particleMat.emissiveIntensity = 2.5;
 
 animate();
 
