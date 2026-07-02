@@ -11,6 +11,23 @@ content="width=device-width,initial-scale=1.0">
 
 <style>
 
+body,
+nav,
+.featureCard,
+#buySection,
+#floatingButton,
+.sectionTitle,
+.logo,
+.navLinks a{
+
+transition:
+background .45s,
+color .45s,
+border .45s,
+box-shadow .45s;
+
+}
+
 *{
 
 margin:0;
@@ -513,9 +530,7 @@ position:fixed;
 bottom:45px;
 right:45px;
 
-padding:
-
-22px 42px;
+padding:22px 42px;
 
 font-size:23px;
 
@@ -523,31 +538,35 @@ font-weight:bold;
 
 border-radius:70px;
 
-background:
-
-linear-gradient(
-
+background:linear-gradient(
 90deg,
-
 #00c6ff,
-
 #0078ff
-
 );
 
 color:white;
 
-box-shadow:
-
-0 20px 45px
-
-rgba(0,120,255,.45);
+box-shadow:0 20px 45px rgba(0,120,255,.45);
 
 z-index:450;
 
 cursor:pointer;
 
 user-select:none;
+
+transition:
+opacity .35s,
+transform .35s;
+
+}
+
+#floatingButton.hide{
+
+opacity:0;
+
+pointer-events:none;
+
+transform:translateY(30px);
 
 }
 
@@ -569,11 +588,21 @@ align-items:center;
 
 gap:25px;
 
-background:white;
+background:linear-gradient(
+180deg,
+#eefaff,
+#ffffff
+);
 
 z-index:99999;
 
 transition:1s;
+
+}
+
+body.dark #loader{
+
+background:#020202;
 
 }
 
@@ -668,9 +697,9 @@ body.dark{
 background:
 linear-gradient(
 180deg,
-#07111d,
-#0c1d30,
-#08131f
+#010101,
+#05080d,
+#000000
 );
 
 }
@@ -681,9 +710,11 @@ color:#6fd5ff;
 
 body.dark nav{
 
-background:rgba(12,25,40,.45);
+background:rgba(5,10,18,.82);
 
-border:1px solid rgba(255,255,255,.08);
+backdrop-filter:blur(24px);
+
+border:1px solid rgba(90,190,255,.10);
 
 }
 
@@ -706,19 +737,22 @@ color:#79d9ff;
 body.dark .featureCard,
 body.dark #buySection{
 
-background:rgba(255,255,255,.05);
+background:rgba(7,15,24,.78);
 
-border:1px solid rgba(255,255,255,.08);
+backdrop-filter:blur(28px);
+
+border:1px solid rgba(80,180,255,.12);
 
 box-shadow:
-0 20px 50px rgba(0,0,0,.45);
+0 30px 70px rgba(0,0,0,.65);
 
 }
 
 body.dark .featureCard p,
-body.dark .technologyText{
+body.dark .technologyText,
+body.dark #heroText p{
 
-color:#c7deef;
+color:#d7f3ff;
 
 }
 
@@ -730,8 +764,260 @@ color:#55d8ff;
 
 body.dark #floatingButton{
 
+background:linear-gradient(
+90deg,
+#0099ff,
+#00d4ff
+);
+
 box-shadow:
-0 25px 60px rgba(0,170,255,.5);
+0 0 35px rgba(0,180,255,.6);
+
+}
+
+/*==========================*/
+/* CUSTOMER TRUST */
+/*==========================*/
+
+#customerTrust{
+
+padding-top:60px;
+
+}
+
+.trustSubtitle{
+
+max-width:800px;
+
+margin:auto;
+
+margin-top:-35px;
+
+margin-bottom:60px;
+
+text-align:center;
+
+font-size:22px;
+
+color:#3c7397;
+
+line-height:1.7;
+
+}
+
+.videoGrid{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:35px;
+
+margin-bottom:70px;
+
+}
+
+.videoCard{
+
+padding:14px;
+
+border-radius:30px;
+
+background:rgba(255,255,255,.22);
+
+backdrop-filter:blur(20px);
+
+border:1px solid rgba(255,255,255,.45);
+
+box-shadow:0 20px 60px rgba(0,120,255,.10);
+
+transition:.45s;
+
+overflow:hidden;
+
+}
+
+.videoCard:hover{
+
+transform:translateY(-12px) scale(1.02);
+
+box-shadow:0 35px 80px rgba(0,170,255,.25);
+
+}
+
+.videoCard video{
+
+display:block;
+
+width:100%;
+
+border-radius:20px;
+
+}
+
+.aboutBox{
+
+max-width:950px;
+
+margin:auto;
+
+padding:60px;
+
+border-radius:35px;
+
+text-align:center;
+
+background:linear-gradient(
+135deg,
+rgba(255,255,255,.28),
+rgba(255,255,255,.14)
+);
+
+backdrop-filter:blur(25px);
+
+border:1px solid rgba(255,255,255,.45);
+
+box-shadow:0 30px 80px rgba(0,120,255,.10);
+
+}
+
+.aboutBox h2{
+
+font-size:50px;
+
+color:#0a6db0;
+
+margin-bottom:20px;
+
+}
+
+.aboutBox p{
+
+font-size:22px;
+
+line-height:1.8;
+
+color:#3c7397;
+
+margin-bottom:40px;
+
+}
+
+.aboutButton{
+
+display:inline-block;
+
+padding:20px 55px;
+
+border-radius:60px;
+
+text-decoration:none;
+
+font-size:22px;
+
+font-weight:700;
+
+color:white;
+
+background:linear-gradient(90deg,#00b7ff,#0077ff);
+
+box-shadow:0 20px 45px rgba(0,120,255,.35);
+
+transition:.35s;
+
+}
+
+.aboutButton:hover{
+
+transform:translateY(-5px) scale(1.05);
+
+box-shadow:0 30px 60px rgba(0,170,255,.45);
+
+}
+
+/* DARK MODE */
+
+body.dark .trustSubtitle{
+
+color:#b9d8ea;
+
+}
+
+body.dark .videoCard{
+
+background:rgba(8,15,25,.82);
+
+border:1px solid rgba(80,180,255,.12);
+
+box-shadow:0 30px 80px rgba(0,0,0,.6);
+
+}
+
+body.dark .aboutBox{
+
+background:linear-gradient(
+135deg,
+rgba(8,15,25,.88),
+rgba(5,10,18,.94)
+);
+
+border:1px solid rgba(90,180,255,.12);
+
+box-shadow:0 35px 90px rgba(0,0,0,.65);
+
+}
+
+body.dark .aboutBox h2{
+
+color:#79d9ff;
+
+}
+
+body.dark .aboutBox p{
+
+color:#d2e8f7;
+
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+.videoGrid{
+
+grid-template-columns:1fr;
+
+gap:22px;
+
+}
+
+.aboutBox{
+
+padding:35px 22px;
+
+}
+
+.aboutBox h2{
+
+font-size:34px;
+
+}
+
+.aboutBox p{
+
+font-size:18px;
+
+}
+
+.aboutButton{
+
+width:100%;
+
+padding:18px;
+
+font-size:19px;
+
+}
 
 }
 
@@ -1079,6 +1365,60 @@ and premium taste.
 
 <!--==============================-->
 
+<section id="customerTrust">
+
+    <div class="sectionTitle">
+        Customer Trust
+    </div>
+
+    <p class="trustSubtitle">
+        Trusted by families across India. Watch real customer experiences.
+    </p>
+
+    <div class="videoGrid">
+
+        <div class="videoCard">
+            <video controls preload="metadata">
+                <source src="1.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="videoCard">
+            <video controls preload="metadata">
+                <source src="2.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="videoCard">
+            <video controls preload="metadata">
+                <source src="3.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="videoCard">
+            <video controls preload="metadata">
+                <source src="4.mp4" type="video/mp4">
+            </video>
+        </div>
+
+    </div>
+
+    <div class="aboutBox">
+
+        <h2>Know More About Us</h2>
+
+        <p>
+            Learn our journey, our technology and why thousands of families trust Kangen Water.
+        </p>
+
+        <a href="about.html" class="aboutButton">
+            Explore →
+        </a>
+
+    </div>
+
+</section>
+
 <section id="pricing">
 
 <div id="buySection">
@@ -1098,7 +1438,7 @@ Your Water
 
 <div id="buyButtonContainer">
 
-<button id="buyButton">
+<button id="buyButton" onclick="window.location.href='buy.html'">
 
 BUY NOW
 
@@ -1278,15 +1618,7 @@ scene.add(glow);
 
 /*=========================*/
 
-const ground =
-new THREE.Mesh(
-
-new THREE.CircleGeometry(
-60,
-100
-),
-
-new THREE.MeshPhongMaterial({
+const groundMaterial = new THREE.MeshPhongMaterial({
 
 color:0xeaf8ff,
 
@@ -1294,15 +1626,19 @@ transparent:true,
 
 opacity:.85
 
-})
+});
+
+const ground = new THREE.Mesh(
+
+new THREE.CircleGeometry(60,100),
+
+groundMaterial
 
 );
 
-ground.rotation.x =
--Math.PI/2;
+ground.rotation.x = -Math.PI/2;
 
-ground.position.y =
--1.6;
+ground.position.y = -1.6;
 
 scene.add(ground);
 
@@ -1323,7 +1659,7 @@ loader.load(
 
 filterModel = gltf.scene;
 
-filterModel.scale.set(1.25,1.25,1.25); // adjust
+filterModel.scale.set(0.625,0.625,0.625); // adjust
 
 filterModel.position.set(0,-0.5,0);
 
@@ -1627,7 +1963,17 @@ Math.random()*100
 
 const clock=
 new THREE.Clock();
+const themeButton = document.getElementById("themeToggle");
 
+const floatingButton = document.getElementById("floatingButton");
+
+floatingButton.onclick = () => {
+
+window.location.href = "buy.html";
+
+};
+
+let darkMode = false;
 /*=========================*/
 
 function animate(){
@@ -1680,11 +2026,17 @@ mouse.y*.08;
 
 
 
-glow.intensity=
+glow.intensity =
 
-18+
+(darkMode ? 10 : 18)
 
-Math.sin(t*4)*5;
++
+
+Math.sin(t*4)
+
+*
+
+(darkMode ? 3 : 5);
 
 /* camera */
 camera.position.x=
@@ -1935,18 +2287,74 @@ document
 
 },1700);
 
-const themeButton=document.getElementById("themeToggle");
 
-themeButton.onclick=()=>{
+
+themeButton.onclick = () => {
+
+darkMode = !darkMode;
 
 document.body.classList.toggle("dark");
 
-themeButton.textContent=
-document.body.classList.contains("dark")
-? "☀️"
-: "🌙";
+themeButton.textContent = darkMode ? "☀️" : "🌙";
+
+if(darkMode){
+
+groundMaterial.color.set(0x050505);
+
+renderer.setClearColor(0x03060a,0);
+
+hemi.intensity = 0.45;
+
+sun.intensity = 1.4;
+
+rim.intensity = 2.8;
+
+glow.intensity = 12;
+
+particleMat.emissiveIntensity = 2.5;
+
+}else{
+
+groundMaterial.color.set(0xeaf8ff);
+
+renderer.setClearColor(0x000000,0);
+
+hemi.intensity = 3;
+
+sun.intensity = 5;
+
+rim.intensity = 2.5;
+
+glow.intensity = 20;
+
+particleMat.emissiveIntensity = 1.2;
+
+}
 
 };
+document.getElementById("buyNav").onclick = () => {
+
+window.location.href = "buy.html";
+
+};
+
+const pricingSection = document.getElementById("pricing");
+
+window.addEventListener("scroll",()=>{
+
+const rect = pricingSection.getBoundingClientRect();
+
+if(rect.top < window.innerHeight * 0.6){
+
+floatingButton.classList.add("hide");
+
+}else{
+
+floatingButton.classList.remove("hide");
+
+}
+
+});
 
 </script>
 
