@@ -1,0 +1,1321 @@
+/*==================================================
+                KENGEN WATER FILTER
+                  BUY PAGE CSS
+                    PART 1
+==================================================*/
+
+/* ---------- Google Fonts ---------- */
+
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* ---------- Reset ---------- */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    color:#ffffff;
+
+    overflow-x:hidden;
+
+    min-height:100vh;
+
+    background:#021f4b;
+
+}
+
+/*==================================================
+                Animated Background
+==================================================*/
+
+.background{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:-5;
+
+    background:
+    linear-gradient(
+        -45deg,
+        #00194d,
+        #0047a8,
+        #00a7ff,
+        #73dfff,
+        #0058d9,
+        #00194d
+    );
+
+    background-size:600% 600%;
+
+    animation:waterMove 20s ease infinite;
+
+}
+
+@keyframes waterMove{
+
+0%{
+
+background-position:0% 50%;
+
+}
+
+50%{
+
+background-position:100% 50%;
+
+}
+
+100%{
+
+background-position:0% 50%;
+
+}
+
+}
+
+/*==================================================
+             Floating Water Lights
+==================================================*/
+
+.background::before{
+
+content:"";
+
+position:absolute;
+
+width:650px;
+height:650px;
+
+border-radius:50%;
+
+background:
+radial-gradient(circle,
+rgba(255,255,255,.18),
+transparent 70%);
+
+left:-180px;
+
+top:-200px;
+
+filter:blur(30px);
+
+animation:blobOne 14s ease-in-out infinite;
+
+}
+
+.background::after{
+
+content:"";
+
+position:absolute;
+
+width:600px;
+height:600px;
+
+border-radius:50%;
+
+background:
+radial-gradient(circle,
+rgba(0,255,255,.15),
+transparent 70%);
+
+right:-150px;
+
+bottom:-150px;
+
+filter:blur(25px);
+
+animation:blobTwo 17s ease-in-out infinite;
+
+}
+
+@keyframes blobOne{
+
+50%{
+
+transform:
+translateY(80px)
+translateX(70px)
+scale(1.15);
+
+}
+
+}
+
+@keyframes blobTwo{
+
+50%{
+
+transform:
+translateY(-80px)
+translateX(-90px)
+scale(.9);
+
+}
+
+}
+
+/*==================================================
+                Floating Bubbles
+==================================================*/
+
+.bubbles{
+
+position:fixed;
+
+inset:0;
+
+pointer-events:none;
+
+overflow:hidden;
+
+z-index:-2;
+
+}
+
+.bubbles span{
+
+position:absolute;
+
+bottom:-100px;
+
+border-radius:50%;
+
+background:
+rgba(255,255,255,.15);
+
+animation:rise linear infinite;
+
+}
+
+@keyframes rise{
+
+0%{
+
+transform:
+translateY(0)
+scale(.4);
+
+opacity:0;
+
+}
+
+15%{
+
+opacity:1;
+
+}
+
+100%{
+
+transform:
+translateY(-120vh)
+scale(1.2);
+
+opacity:0;
+
+}
+
+}
+
+/*==================================================
+                Main Layout
+==================================================*/
+
+.wizard{
+
+width:100%;
+
+min-height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+padding:70px 20px;
+
+}
+
+/*==================================================
+              Main Glass Container
+==================================================*/
+
+.glass{
+
+width:100%;
+
+max-width:820px;
+
+padding:55px;
+
+border-radius:35px;
+
+background:
+rgba(255,255,255,.14);
+
+backdrop-filter:blur(24px);
+
+-webkit-backdrop-filter:blur(24px);
+
+border:
+
+1px solid rgba(255,255,255,.25);
+
+box-shadow:
+
+0 30px 90px rgba(0,0,0,.35);
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+/* Decorative shine */
+
+.glass::before{
+
+content:"";
+
+position:absolute;
+
+width:220px;
+
+height:800px;
+
+background:
+
+linear-gradient(
+
+transparent,
+
+rgba(255,255,255,.25),
+
+transparent);
+
+transform:rotate(30deg);
+
+left:-260px;
+
+top:-100px;
+
+animation:shine 8s linear infinite;
+
+}
+
+@keyframes shine{
+
+100%{
+
+left:1200px;
+
+}
+
+}
+
+/*==================================================
+                  Logo
+==================================================*/
+
+.logo{
+
+text-align:center;
+
+margin-bottom:40px;
+
+}
+
+.logo h1{
+
+font-family:"Baloo 2",cursive;
+
+font-size:58px;
+
+font-weight:800;
+
+line-height:1;
+
+background:
+
+linear-gradient(
+
+90deg,
+
+#ffffff,
+
+#ddfbff,
+
+#7eeeff,
+
+#ffffff);
+
+background-size:300%;
+
+-webkit-background-clip:text;
+
+-webkit-text-fill-color:transparent;
+
+animation:logoShine 5s linear infinite;
+
+letter-spacing:2px;
+
+}
+
+@keyframes logoShine{
+
+100%{
+
+background-position:300%;
+
+}
+
+}
+
+.logo p{
+
+margin-top:18px;
+
+font-size:18px;
+
+font-weight:500;
+
+letter-spacing:2px;
+
+color:
+
+rgba(255,255,255,.9);
+
+}
+
+/*==================================================
+               Progress Container
+==================================================*/
+
+.progress{
+
+margin-top:25px;
+
+margin-bottom:45px;
+
+}
+
+.progress-text{
+
+display:flex;
+
+justify-content:center;
+
+gap:8px;
+
+font-size:18px;
+
+font-weight:600;
+
+margin-bottom:12px;
+
+color:white;
+
+}
+
+.progress{
+
+width:100%;
+
+height:14px;
+
+border-radius:100px;
+
+background:
+
+rgba(255,255,255,.18);
+
+overflow:hidden;
+
+}
+
+.progress-bar{
+
+width:10%;
+
+height:100%;
+
+border-radius:100px;
+
+background:
+
+linear-gradient(
+
+90deg,
+
+#4ce9ff,
+
+#ffffff,
+
+#8efbff);
+
+transition:.45s;
+
+}
+
+/*==================================================
+               Responsive Base
+==================================================*/
+
+@media(max-width:900px){
+
+.glass{
+
+padding:35px;
+
+}
+
+.logo h1{
+
+font-size:42px;
+
+}
+
+}
+
+@media(max-width:600px){
+
+.glass{
+
+padding:24px;
+
+border-radius:22px;
+
+}
+
+.logo h1{
+
+font-size:34px;
+
+}
+
+.logo p{
+
+font-size:15px;
+
+}
+
+}
+/*==================================================
+                QUESTIONS
+==================================================*/
+
+.question{
+
+display:none;
+
+min-height:320px;
+
+animation:none;
+
+}
+
+.question.active{
+
+display:block;
+
+animation:questionIn .65s cubic-bezier(.22,1,.36,1);
+
+}
+
+@keyframes questionIn{
+
+0%{
+
+opacity:0;
+
+transform:
+translateX(80px)
+scale(.96);
+
+filter:blur(15px);
+
+}
+
+100%{
+
+opacity:1;
+
+transform:
+translateX(0)
+scale(1);
+
+filter:blur(0);
+
+}
+
+}
+
+/*==================================================
+              QUESTION TITLE
+==================================================*/
+
+.question h2{
+
+font-family:"Baloo 2",cursive;
+
+font-size:42px;
+
+font-weight:800;
+
+line-height:1.2;
+
+margin-bottom:35px;
+
+background:linear-gradient(
+90deg,
+#ffffff,
+#aef5ff,
+#ffffff);
+
+background-size:250%;
+
+-webkit-background-clip:text;
+
+-webkit-text-fill-color:transparent;
+
+animation:titleWave 6s linear infinite;
+
+}
+
+@keyframes titleWave{
+
+100%{
+
+background-position:250%;
+
+}
+
+}
+
+/*==================================================
+                INPUTS
+==================================================*/
+
+input,
+textarea,
+select{
+
+width:100%;
+
+border:none;
+
+outline:none;
+
+padding:22px 28px;
+
+margin-top:18px;
+
+font-size:24px;
+
+font-family:"Baloo 2",cursive;
+
+font-weight:700;
+
+letter-spacing:.5px;
+
+border-radius:22px;
+
+background:
+
+rgba(255,255,255,.96);
+
+color:#004f87;
+
+transition:.35s;
+
+box-shadow:
+
+0 12px 35px rgba(0,0,0,.12);
+
+}
+
+/* typed text */
+
+input,
+textarea{
+
+caret-color:#00bfff;
+
+}
+
+/* placeholders */
+
+input::placeholder,
+textarea::placeholder{
+
+color:#71b8e8;
+
+font-size:22px;
+
+font-weight:600;
+
+}
+
+/* focus */
+
+input:focus,
+textarea:focus,
+select:focus{
+
+transform:
+translateY(-3px)
+scale(1.02);
+
+box-shadow:
+
+0 18px 45px rgba(0,200,255,.35);
+
+}
+
+/* textarea */
+
+textarea{
+
+resize:none;
+
+min-height:170px;
+
+}
+
+/* select */
+
+select{
+
+cursor:pointer;
+
+}
+
+/*==================================================
+             CHECKBOX / RADIO
+==================================================*/
+
+.check{
+
+display:flex;
+
+align-items:flex-start;
+
+gap:18px;
+
+font-size:23px;
+
+line-height:1.6;
+
+font-family:"Baloo 2";
+
+cursor:pointer;
+
+user-select:none;
+
+}
+
+.check input{
+
+width:26px;
+
+height:26px;
+
+margin-top:8px;
+
+}
+
+/*==================================================
+           BUTTON CONTAINER
+==================================================*/
+
+.navigation{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+gap:18px;
+
+margin-top:45px;
+
+}
+
+/*==================================================
+                BUTTONS
+==================================================*/
+
+.navigation button{
+
+flex:1;
+
+height:68px;
+
+border:none;
+
+border-radius:18px;
+
+cursor:pointer;
+
+font-family:"Baloo 2";
+
+font-size:25px;
+
+font-weight:800;
+
+letter-spacing:.5px;
+
+transition:.35s;
+
+}
+
+/* previous */
+
+#prevBtn{
+
+background:
+
+rgba(255,255,255,.18);
+
+color:white;
+
+backdrop-filter:blur(12px);
+
+}
+
+#prevBtn:hover{
+
+background:
+
+rgba(255,255,255,.28);
+
+transform:translateY(-4px);
+
+}
+
+/* next */
+
+#nextBtn{
+
+background:
+
+linear-gradient(
+135deg,
+#00b7ff,
+#00e5ff);
+
+color:white;
+
+box-shadow:
+
+0 15px 35px rgba(0,170,255,.35);
+
+}
+
+#nextBtn:hover{
+
+transform:
+
+translateY(-5px)
+scale(1.03);
+
+box-shadow:
+
+0 25px 60px rgba(0,220,255,.45);
+
+}
+
+/* submit */
+
+#submitBtn{
+
+display:none;
+
+background:
+
+linear-gradient(
+135deg,
+#00d76d,
+#00c853);
+
+color:white;
+
+box-shadow:
+
+0 18px 45px rgba(0,170,90,.35);
+
+}
+
+#submitBtn:hover{
+
+transform:
+
+translateY(-5px)
+scale(1.03);
+
+}
+
+/*==================================================
+          QUESTION NUMBER
+==================================================*/
+
+#currentQuestion{
+
+font-weight:800;
+
+color:#9af6ff;
+
+}
+
+#totalQuestions{
+
+font-weight:800;
+
+color:white;
+
+}
+
+/*==================================================
+            SMALL FLOAT EFFECT
+==================================================*/
+
+.glass{
+
+animation:glassFloat 6s ease-in-out infinite;
+
+}
+
+@keyframes glassFloat{
+
+50%{
+
+transform:translateY(-6px);
+
+}
+
+}
+
+/*==================================================
+                MOBILE
+==================================================*/
+
+@media(max-width:700px){
+
+.question{
+
+min-height:260px;
+
+}
+
+.question h2{
+
+font-size:30px;
+
+}
+
+input,
+textarea,
+select{
+
+font-size:19px;
+
+padding:18px;
+
+}
+
+input::placeholder,
+textarea::placeholder{
+
+font-size:18px;
+
+}
+
+.navigation{
+
+flex-direction:column;
+
+}
+
+.navigation button{
+
+width:100%;
+
+font-size:21px;
+
+height:60px;
+
+}
+
+.check{
+
+font-size:19px;
+
+}
+
+}
+/*==================================================
+        PART 3 - PREMIUM MICRO INTERACTIONS
+==================================================*/
+
+/* Liquid light overlay */
+
+.glass::after{
+
+content:"";
+
+position:absolute;
+
+inset:0;
+
+pointer-events:none;
+
+background:
+linear-gradient(
+135deg,
+rgba(255,255,255,.10),
+transparent 30%,
+transparent 70%,
+rgba(255,255,255,.06));
+
+opacity:.8;
+
+}
+
+/* Smooth everything */
+
+*{
+
+transition:
+background .35s,
+color .35s,
+box-shadow .35s,
+transform .35s,
+border-color .35s;
+
+}
+
+/* Premium input border */
+
+input,
+textarea,
+select{
+
+border:2px solid transparent;
+
+}
+
+/* Focus */
+
+input:focus,
+textarea:focus,
+select:focus{
+
+border-color:#79e8ff;
+
+background:white;
+
+}
+
+/* Hover */
+
+input:hover,
+textarea:hover,
+select:hover{
+
+transform:translateY(-2px);
+
+}
+
+/* Disabled */
+
+button:disabled{
+
+opacity:.45;
+
+cursor:not-allowed;
+
+transform:none;
+
+box-shadow:none;
+
+}
+
+/* Button click */
+
+.navigation button:active{
+
+transform:scale(.96);
+
+}
+
+/* Ripple shine */
+
+.navigation button{
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+.navigation button::before{
+
+content:"";
+
+position:absolute;
+
+top:-120%;
+
+left:-35%;
+
+width:60px;
+
+height:260%;
+
+background:
+
+rgba(255,255,255,.28);
+
+transform:rotate(25deg);
+
+transition:.7s;
+
+}
+
+.navigation button:hover::before{
+
+left:130%;
+
+}
+
+/* Progress glow */
+
+.progress{
+
+box-shadow:
+
+0 0 25px rgba(255,255,255,.12);
+
+}
+
+.progress-bar{
+
+box-shadow:
+
+0 0 25px #6feeff;
+
+animation:progressGlow 2.5s infinite alternate;
+
+}
+
+@keyframes progressGlow{
+
+from{
+
+filter:brightness(1);
+
+}
+
+to{
+
+filter:brightness(1.35);
+
+}
+
+}
+
+/* Fancy selection */
+
+::selection{
+
+background:#8defff;
+
+color:#00385d;
+
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar{
+
+width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+background:#043a72;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+background:#70e8ff;
+
+border-radius:30px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+background:white;
+
+}
+
+/* Logo animation */
+
+.logo h1:hover{
+
+transform:scale(1.02);
+
+}
+
+/* Footer */
+
+footer{
+
+opacity:.75;
+
+transition:.35s;
+
+}
+
+footer:hover{
+
+opacity:1;
+
+}
+
+/* Card hover */
+
+.glass:hover{
+
+box-shadow:
+
+0 40px 120px rgba(0,0,0,.38);
+
+}
+
+/* Input typing */
+
+input:not(:placeholder-shown),
+
+textarea:not(:placeholder-shown){
+
+background:
+
+linear-gradient(
+135deg,
+#ffffff,
+#eefcff);
+
+}
+
+/* Valid */
+
+input:valid{
+
+border-color:#54df9d;
+
+}
+
+/* Invalid */
+
+input:invalid:not(:placeholder-shown){
+
+border-color:#ff8a8a;
+
+}
+
+/* Checkbox */
+
+.check input{
+
+accent-color:#19c8ff;
+
+}
+
+/* Select */
+
+select{
+
+appearance:none;
+
+background-image:
+
+linear-gradient(45deg,transparent 50%,#0075ff 50%),
+
+linear-gradient(135deg,#0075ff 50%,transparent 50%);
+
+background-position:
+
+calc(100% - 25px) calc(50% - 3px),
+
+calc(100% - 18px) calc(50% - 3px);
+
+background-size:8px 8px;
+
+background-repeat:no-repeat;
+
+padding-right:55px;
+
+}
+
+/* Gentle floating */
+
+.question.active{
+
+animation:
+questionIn .6s,
+softFloat 6s ease-in-out infinite;
+
+}
+
+@keyframes softFloat{
+
+50%{
+
+transform:translateY(-4px);
+
+}
+
+}
+
+/* Nice fade */
+
+body{
+
+animation:pageFade .8s;
+
+}
+
+@keyframes pageFade{
+
+from{
+
+opacity:0;
+
+}
+
+to{
+
+opacity:1;
+
+}
+
+}

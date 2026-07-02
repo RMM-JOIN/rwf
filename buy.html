@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Buy | Kengen Water Filter</title>
+
+<link rel="stylesheet" href="buy.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="background">
+    <div class="wave"></div>
+    <div class="wave"></div>
+    <div class="wave"></div>
+</div>
+
+<div class="bubbles"></div>
+
+<main class="wizard">
+
+<div class="glass">
+
+<div class="logo">
+<h1>Kengen Water Filter</h1>
+<p>Pure Water. Pure Life.</p>
+</div>
+
+<div class="progress">
+
+<div class="progress-bar"></div>
+
+<div class="progress-text">
+Question
+<span id="currentQuestion">1</span>
+of
+<span id="totalQuestions">10</span>
+</div>
+
+</div>
+
+<form id="buyForm">
+
+<!-- Question 1 -->
+
+<section class="question active">
+
+<h2>What's your full name?</h2>
+
+<input
+type="text"
+name="fullname"
+placeholder="Enter your full name"
+required>
+
+</section>
+
+<!-- Question 2 -->
+
+<section class="question">
+
+<h2>Your mobile number?</h2>
+
+<input
+type="tel"
+name="phone"
+placeholder="+91 XXXXX XXXXX"
+required>
+
+</section>
+
+<!-- Question 3 -->
+
+<section class="question">
+
+<h2>Email Address</h2>
+
+<input
+type="email"
+name="email"
+placeholder="example@email.com"
+required>
+
+</section>
+
+<!-- Question 4 -->
+
+<section class="question">
+
+<h2>Delivery Address</h2>
+
+<textarea
+name="address"
+placeholder="House No, Street, Area..."
+required></textarea>
+
+</section>
+
+<!-- Question 5 -->
+
+<section class="question">
+
+<h2>City</h2>
+
+<input
+type="text"
+name="city"
+placeholder="Your City"
+required>
+
+</section>
+
+<!-- Question 6 -->
+
+<section class="question">
+
+<h2>State</h2>
+
+<input
+type="text"
+name="state"
+placeholder="State"
+required>
+
+</section>
+
+<!-- Question 7 -->
+
+<section class="question">
+
+<h2>Pincode</h2>
+
+<input
+type="text"
+name="pincode"
+placeholder="6 digit pincode"
+required>
+
+</section>
+
+<!-- Question 8 -->
+
+<section class="question">
+
+<h2>Water Source</h2>
+
+<select name="source">
+
+<option value="">Choose One</option>
+
+<option>Tap Water</option>
+
+<option>Borewell</option>
+
+<option>Municipal Supply</option>
+
+<option>Tank Water</option>
+
+<option>Other</option>
+
+</select>
+
+</section>
+
+<!-- Question 9 -->
+
+<section class="question">
+
+<h2>Anything you'd like us to know?</h2>
+
+<textarea
+name="notes"
+placeholder="Installation notes, landmark, etc."></textarea>
+
+</section>
+
+<!-- Question 10 -->
+
+<section class="question">
+
+<h2>Ready to order?</h2>
+
+<label class="check">
+
+<input
+type="checkbox"
+required>
+
+<span>
+I confirm that all information above is correct.
+</span>
+
+</label>
+
+</section>
+
+<div class="navigation">
+
+<button
+type="button"
+id="prevBtn">
+
+Previous
+
+</button>
+
+<button
+type="button"
+id="nextBtn">
+
+Next →
+
+</button>
+
+<button
+type="submit"
+id="submitBtn">
+
+Place Order
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script src="buy.js"></script>
+
+</body>
+
+</html>
