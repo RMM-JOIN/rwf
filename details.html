@@ -1,0 +1,2195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
+
+<title>Kangen Water Details</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap"
+rel="stylesheet">
+
+<script async
+src="https://unpkg.com/es-module-shims@1.10.0/dist/es-module-shims.js">
+</script>
+
+<script type="importmap">
+{
+"imports":{
+
+"three":
+"https://unpkg.com/three@0.170.0/build/three.module.js",
+
+"three/addons/":
+"https://unpkg.com/three@0.170.0/examples/jsm/"
+
+}
+}
+</script>
+
+<style>
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Poppins",sans-serif;
+scroll-behavior:smooth;
+
+}
+
+html,
+body{
+
+width:100%;
+overflow-x:hidden;
+
+background:
+linear-gradient(
+180deg,
+#00111e,
+#01263c,
+#003a57,
+#001521
+);
+
+color:white;
+
+}
+
+/*========================*/
+
+body{
+
+position:relative;
+
+}
+
+/*========================*/
+
+canvas{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+z-index:1;
+
+}
+
+/*========================*/
+
+#bubbleBackground{
+
+position:fixed;
+
+inset:0;
+
+overflow:hidden;
+
+pointer-events:none;
+
+z-index:2;
+
+}
+
+/*========================*/
+
+.bubble{
+
+position:absolute;
+
+bottom:-120px;
+
+border-radius:50%;
+
+background:
+
+radial-gradient(
+
+circle,
+
+rgba(255,255,255,.55),
+
+rgba(130,220,255,.18)
+
+);
+
+animation:
+
+bubbleFloat linear infinite;
+
+}
+
+/*========================*/
+
+@keyframes bubbleFloat{
+
+0%{
+
+transform:
+translateY(0)
+scale(.5);
+
+opacity:0;
+
+}
+
+15%{
+
+opacity:.9;
+
+}
+
+100%{
+
+transform:
+translateY(-130vh)
+scale(1.3);
+
+opacity:0;
+
+}
+
+}
+
+/*========================*/
+
+nav{
+
+position:fixed;
+
+top:18px;
+left:50%;
+
+transform:translateX(-50%);
+
+width:92%;
+
+height:74px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:0 30px;
+
+border-radius:25px;
+
+background:
+
+rgba(255,255,255,.08);
+
+backdrop-filter:blur(18px);
+
+border:
+
+1px solid
+
+rgba(255,255,255,.12);
+
+z-index:1000;
+
+}
+
+/*========================*/
+
+.logo{
+
+font-size:32px;
+
+font-weight:900;
+
+letter-spacing:2px;
+
+color:#7be2ff;
+
+}
+
+/*========================*/
+
+.navLinks{
+
+display:flex;
+
+gap:35px;
+
+}
+
+/*========================*/
+
+.navLinks a{
+
+text-decoration:none;
+
+color:white;
+
+font-size:18px;
+
+font-weight:600;
+
+transition:.35s;
+
+cursor:pointer;
+
+}
+
+.navLinks a:hover{
+
+color:#7be2ff;
+
+}
+
+/*========================*/
+
+section{
+
+position:relative;
+
+z-index:20;
+
+width:100%;
+
+min-height:100vh;
+
+padding:
+
+130px
+8%
+70px;
+
+}
+
+/*========================*/
+
+#hero{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+text-align:center;
+
+}
+
+/*========================*/
+
+#hero h1{
+
+font-size:72px;
+
+font-weight:900;
+
+line-height:1.05;
+
+max-width:900px;
+
+text-shadow:
+
+0 0 30px
+
+rgba(0,180,255,.45);
+
+}
+
+/*========================*/
+
+#hero p{
+
+margin-top:30px;
+
+max-width:850px;
+
+font-size:22px;
+
+line-height:1.8;
+
+color:#d8f4ff;
+
+}
+
+/*========================*/
+
+#threeContainer{
+
+width:100%;
+
+height:650px;
+
+margin-top:40px;
+
+position:relative;
+
+z-index:50;
+
+transition:
+
+filter .6s,
+
+transform .6s,
+
+opacity .6s;
+
+}
+
+/*========================*/
+
+.sectionTitle{
+
+font-size:60px;
+
+font-weight:900;
+
+text-align:center;
+
+margin-bottom:70px;
+
+color:#7be2ff;
+
+}
+
+/*========================*/
+
+#products{
+
+padding-top:80px;
+
+}
+
+/*========================*/
+
+.cards{
+
+display:flex;
+
+flex-direction:column;
+
+gap:70px;
+
+max-width:950px;
+
+margin:auto;
+
+}
+
+/*========================*/
+
+.productCard{
+
+padding:55px;
+
+border-radius:35px;
+
+background:
+
+rgba(255,255,255,.08);
+
+backdrop-filter:blur(25px);
+
+border:
+
+1px solid
+
+rgba(255,255,255,.12);
+
+box-shadow:
+
+0 25px 80px
+
+rgba(0,120,255,.18);
+
+}
+
+
+/*========================*/
+
+@media(max-width:900px){
+
+nav{
+
+width:96%;
+
+padding:0 18px;
+
+height:65px;
+
+}
+
+.logo{
+
+font-size:24px;
+
+}
+
+.navLinks{
+
+gap:14px;
+
+overflow:auto;
+
+}
+
+.navLinks a{
+
+font-size:15px;
+
+white-space:nowrap;
+
+}
+
+#hero h1{
+
+font-size:44px;
+
+}
+
+#hero p{
+
+font-size:18px;
+
+}
+
+#threeContainer{
+
+height:380px;
+
+}
+
+.productCard{
+
+padding:28px;
+
+}
+
+.sectionTitle{
+
+font-size:38px;
+
+}
+
+}
+.productHeader{
+
+text-align:center;
+
+margin-bottom:40px;
+
+}
+
+.productBadge{
+
+display:inline-block;
+
+padding:10px 22px;
+
+border-radius:50px;
+
+background:linear-gradient(90deg,#00cfff,#007bff);
+
+font-size:14px;
+
+font-weight:700;
+
+margin-bottom:22px;
+
+}
+
+.productHeader h2{
+
+font-size:44px;
+
+margin-bottom:18px;
+
+color:#8ce8ff;
+
+}
+
+.price{
+
+font-size:58px;
+
+font-weight:900;
+
+color:#59deff;
+
+margin-bottom:25px;
+
+text-shadow:0 0 25px rgba(0,200,255,.35);
+
+}
+
+.productDescription{
+
+max-width:720px;
+
+margin:auto;
+
+font-size:20px;
+
+line-height:1.9;
+
+color:#d9f6ff;
+
+}
+
+.featureGrid{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:18px;
+
+margin-top:45px;
+
+}
+
+.featureItem{
+
+padding:18px 20px;
+
+border-radius:18px;
+
+background:rgba(255,255,255,.06);
+
+border:1px solid rgba(255,255,255,.08);
+
+font-size:18px;
+
+}
+
+.specTable{
+
+margin-top:45px;
+
+border-radius:22px;
+
+overflow:hidden;
+
+background:rgba(255,255,255,.05);
+
+}
+
+.specRow{
+
+display:flex;
+
+justify-content:space-between;
+
+padding:18px 24px;
+
+border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+.specRow:last-child{
+
+border-bottom:none;
+
+}
+
+.specRow span{
+
+color:#d8f2ff;
+
+}
+
+.specRow strong{
+
+color:#8ce8ff;
+
+}
+
+.buttonArea{
+
+margin-top:45px;
+
+text-align:center;
+
+}
+
+.confirmButton{
+
+padding:20px 65px;
+
+border:none;
+
+border-radius:60px;
+
+font-size:22px;
+
+font-weight:700;
+
+cursor:pointer;
+
+color:white;
+
+background:linear-gradient(90deg,#00c8ff,#0078ff);
+
+box-shadow:0 20px 45px rgba(0,170,255,.35);
+
+transition:.35s;
+
+}
+
+.confirmButton:hover{
+
+transform:translateY(-5px) scale(1.05);
+
+box-shadow:0 30px 70px rgba(0,180,255,.45);
+
+}
+
+@media(max-width:900px){
+
+.featureGrid{
+
+grid-template-columns:1fr;
+
+}
+
+.productHeader h2{
+
+font-size:32px;
+
+}
+
+.price{
+
+font-size:42px;
+
+}
+
+.productDescription{
+
+font-size:17px;
+
+}
+
+.confirmButton{
+
+width:100%;
+
+}
+
+}
+
+.premiumCard{
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+.premiumCard::before{
+
+content:"";
+
+position:absolute;
+
+inset:0;
+
+background:
+
+linear-gradient(
+
+135deg,
+
+rgba(0,220,255,.10),
+
+rgba(0,80,255,.04),
+
+rgba(255,255,255,.02)
+
+);
+
+pointer-events:none;
+
+}
+
+.premiumBadge{
+
+background:
+
+linear-gradient(
+
+90deg,
+
+#00f0ff,
+
+#0095ff,
+
+#006dff
+
+);
+
+box-shadow:
+
+0 0 30px
+
+rgba(0,200,255,.45);
+
+}
+
+.premiumCard .price{
+
+color:#79ecff;
+
+text-shadow:
+
+0 0 30px
+
+rgba(0,220,255,.45);
+
+}
+
+.premiumCard:hover{
+
+transform:
+
+translateY(-10px);
+
+box-shadow:
+
+0 35px 90px
+
+rgba(0,180,255,.30);
+
+transition:.4s;
+
+}
+
+.premiumCard .featureItem{
+
+background:
+
+rgba(255,255,255,.07);
+
+}
+
+.premiumCard .confirmButton{
+
+background:
+
+linear-gradient(
+
+90deg,
+
+#00e5ff,
+
+#009cff,
+
+#0072ff
+
+);
+
+}
+
+.premiumCard .confirmButton:hover{
+
+box-shadow:
+
+0 0 45px
+
+rgba(0,220,255,.55);
+
+}
+
+/*==============================*/
+/* UNDERWATER LIGHT RAYS */
+/*==============================*/
+
+body::before{
+
+content:"";
+
+position:fixed;
+
+top:-40%;
+
+left:-20%;
+
+width:150%;
+
+height:170%;
+
+pointer-events:none;
+
+z-index:0;
+
+background:
+
+repeating-linear-gradient(
+
+110deg,
+
+rgba(255,255,255,.05) 0px,
+
+rgba(255,255,255,.02) 80px,
+
+transparent 170px,
+
+transparent 260px
+
+);
+
+animation:
+
+waterLight
+
+18s linear infinite;
+
+opacity:.35;
+
+}
+
+@keyframes waterLight{
+
+0%{
+
+transform:
+
+translateX(-100px)
+translateY(0)
+rotate(0deg);
+
+}
+
+100%{
+
+transform:
+
+translateX(100px)
+translateY(60px)
+rotate(2deg);
+
+}
+
+}
+
+/*==============================*/
+/* PRODUCT CARD ENTRANCE */
+/*==============================*/
+
+.productCard{
+
+opacity:0;
+
+transform:
+
+translateY(80px);
+
+animation:
+
+cardReveal
+
+1s ease forwards;
+
+}
+
+.productCard:nth-child(2){
+
+animation-delay:.3s;
+
+}
+
+@keyframes cardReveal{
+
+to{
+
+opacity:1;
+
+transform:
+
+translateY(0);
+
+}
+
+}
+
+/*==============================*/
+/* HOVER GLOW */
+/*==============================*/
+
+.productCard{
+
+transition:
+
+.45s;
+
+}
+
+.productCard:hover{
+
+transform:
+
+translateY(-10px)
+scale(1.015);
+
+box-shadow:
+
+0 35px 90px
+
+rgba(0,210,255,.25);
+
+}
+
+/*==============================*/
+/* FOOTER */
+/*==============================*/
+
+#footer{
+
+position:relative;
+
+padding:
+
+120px 8%
+90px;
+
+text-align:center;
+
+overflow:hidden;
+
+background:
+
+linear-gradient(
+
+180deg,
+
+transparent,
+
+rgba(0,0,0,.25)
+
+);
+
+z-index:20;
+
+}
+
+.footerGlow{
+
+position:absolute;
+
+width:450px;
+
+height:450px;
+
+left:50%;
+
+top:0;
+
+transform:
+
+translateX(-50%);
+
+border-radius:50%;
+
+background:
+
+radial-gradient(
+
+circle,
+
+rgba(0,200,255,.25),
+
+transparent 70%
+
+);
+
+filter:blur(60px);
+
+pointer-events:none;
+
+}
+
+#footer h2{
+
+position:relative;
+
+font-size:52px;
+
+color:#8be8ff;
+
+margin-bottom:25px;
+
+}
+
+#footer p{
+
+position:relative;
+
+max-width:850px;
+
+margin:auto;
+
+font-size:22px;
+
+line-height:1.9;
+
+color:#d6f6ff;
+
+}
+
+.footerButtons{
+
+margin-top:45px;
+
+display:flex;
+
+justify-content:center;
+
+gap:25px;
+
+flex-wrap:wrap;
+
+}
+
+.footerButton{
+
+padding:
+
+20px 50px;
+
+border-radius:60px;
+
+text-decoration:none;
+
+font-weight:700;
+
+font-size:20px;
+
+color:white;
+
+background:
+
+linear-gradient(
+
+90deg,
+
+#00cfff,
+
+#0078ff
+
+);
+
+box-shadow:
+
+0 20px 50px
+
+rgba(0,170,255,.35);
+
+transition:.35s;
+
+}
+
+.footerButton:hover{
+
+transform:
+
+translateY(-6px)
+scale(1.05);
+
+box-shadow:
+
+0 30px 60px
+
+rgba(0,200,255,.45);
+
+}
+
+.secondary{
+
+background:
+
+rgba(255,255,255,.08);
+
+border:
+
+1px solid
+
+rgba(255,255,255,.12);
+
+backdrop-filter:blur(20px);
+
+}
+
+.footerBottom{
+
+margin-top:70px;
+
+font-size:16px;
+
+color:#99d8ef;
+
+}
+
+/*==============================*/
+/* MOBILE */
+/*==============================*/
+
+@media(max-width:900px){
+
+#footer{
+
+padding:
+
+80px 25px
+60px;
+
+}
+
+#footer h2{
+
+font-size:34px;
+
+}
+
+#footer p{
+
+font-size:17px;
+
+}
+
+.footerButtons{
+
+flex-direction:column;
+
+}
+
+.footerButton{
+
+width:100%;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="bubbleBackground"></div>
+
+<nav>
+
+<div class="logo">
+
+KANGEN
+
+</div>
+
+<div class="navLinks">
+
+<a href="index.html">
+
+Home
+
+</a>
+
+<a href="#products">
+
+Products
+
+</a>
+
+<a href="buy.html">
+
+Buy
+
+</a>
+
+</div>
+
+</nav>
+
+<section id="hero">
+
+<h1>
+
+Discover Premium Japanese Water Ionizers
+
+</h1>
+
+<p>
+
+Compare our advanced 4 Plates and 7 Plates Kangen Water Systems. Both are built with premium Japanese electrolysis technology to provide healthy alkaline water for your family.
+
+</p>
+
+<div id="threeContainer"></div>
+
+</section>
+
+<section id="products">
+
+<div class="sectionTitle">
+
+Choose Your Machine
+
+</div>
+
+<div class="cards">
+
+<div class="productCard" id="card4">
+
+<div class="productHeader">
+
+<div class="productBadge">
+BEST FOR SMALL FAMILIES
+</div>
+
+<h2>
+4 Plates Kangen Water Filter
+</h2>
+
+<div class="price">
+₹2,40,000
+</div>
+
+<p class="productDescription">
+
+The 4 Plates Kangen Water Filter is designed for homes looking for premium alkaline water with compact size, excellent efficiency, and trusted Japanese electrolysis technology.
+
+</p>
+
+</div>
+
+<div class="featureGrid">
+
+<div class="featureItem">
+✅ 4 Platinum Coated Titanium Plates
+</div>
+
+<div class="featureItem">
+💧 Produces Multiple Water Types
+</div>
+
+<div class="featureItem">
+⚡ Low Power Consumption
+</div>
+
+<div class="featureItem">
+🏠 Ideal for 2–4 Family Members
+</div>
+
+<div class="featureItem">
+🛡 Durable Japanese Technology
+</div>
+
+<div class="featureItem">
+🔬 High Purity Electrolysis
+</div>
+
+<div class="featureItem">
+🌿 Supports Healthy Hydration
+</div>
+
+<div class="featureItem">
+🔧 Easy Maintenance
+</div>
+
+</div>
+
+<div class="specTable">
+
+<div class="specRow">
+<span>Electrolysis Plates</span>
+<strong>4 Plates</strong>
+</div>
+
+<div class="specRow">
+<span>Technology</span>
+<strong>Japanese Electrolysis</strong>
+</div>
+
+<div class="specRow">
+<span>Water Types</span>
+<strong>Multiple Types</strong>
+</div>
+
+<div class="specRow">
+<span>Recommended Family</span>
+<strong>2–4 Members</strong>
+</div>
+
+<div class="specRow">
+<span>Price</span>
+<strong>₹2,40,000</strong>
+</div>
+
+</div>
+
+<div class="buttonArea">
+
+<button class="confirmButton"
+onclick="window.location.href='buy.html'">
+
+CONFIRM ORDER
+
+</button>
+
+</div>
+
+</div>
+
+<div class="productCard premiumCard" id="card7">
+
+<div class="productHeader">
+
+<div class="productBadge premiumBadge">
+
+PREMIUM MODEL
+
+</div>
+
+<h2>
+
+7 Plates Kangen Water Filter
+
+</h2>
+
+<div class="price">
+
+₹3,40,000
+
+</div>
+
+<p class="productDescription">
+
+The flagship 7 Plates Kangen Water Filter is built for maximum hydrogen production, superior electrolysis performance, and continuous operation for larger families. It represents the highest level of Japanese water ionization technology.
+
+</p>
+
+</div>
+
+<div class="featureGrid">
+
+<div class="featureItem">
+⭐ 7 Platinum Coated Titanium Plates
+</div>
+
+<div class="featureItem">
+💧 Maximum Hydrogen Rich Water
+</div>
+
+<div class="featureItem">
+🌊 Produces Multiple Water Types
+</div>
+
+<div class="featureItem">
+🏡 Perfect For Large Families
+</div>
+
+<div class="featureItem">
+⚡ Powerful Electrolysis Chamber
+</div>
+
+<div class="featureItem">
+🧬 Premium Japanese Engineering
+</div>
+
+<div class="featureItem">
+🛡 Long Lasting Performance
+</div>
+
+<div class="featureItem">
+💎 Professional Grade Quality
+</div>
+
+</div>
+
+<div class="specTable">
+
+<div class="specRow">
+
+<span>Electrolysis Plates</span>
+
+<strong>7 Plates</strong>
+
+</div>
+
+<div class="specRow">
+
+<span>Technology</span>
+
+<strong>Premium Japanese Electrolysis</strong>
+
+</div>
+
+<div class="specRow">
+
+<span>Hydrogen Production</span>
+
+<strong>Maximum</strong>
+
+</div>
+
+<div class="specRow">
+
+<span>Recommended Family</span>
+
+<strong>4+ Members</strong>
+
+</div>
+
+<div class="specRow">
+
+<span>Performance</span>
+
+<strong>Professional Grade</strong>
+
+</div>
+
+<div class="specRow">
+
+<span>Price</span>
+
+<strong>₹3,40,000</strong>
+
+</div>
+
+</div>
+
+<div class="buttonArea">
+
+<button class="confirmButton"
+
+onclick="window.location.href='buy.html'">
+
+CONFIRM ORDER
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<footer id="footer">
+
+<div class="footerGlow"></div>
+
+<h2>
+
+Experience the Future of Healthy Water
+
+</h2>
+
+<p>
+
+Every drop is powered by advanced Japanese electrolysis technology, engineered to provide premium alkaline water for your family.
+
+</p>
+
+<div class="footerButtons">
+
+<a href="buy.html" class="footerButton">
+
+ORDER NOW
+
+</a>
+
+<a href="index.html" class="footerButton secondary">
+
+BACK TO HOME
+
+</a>
+
+</div>
+
+<div class="footerBottom">
+
+© 2026 Kangen Water. Premium Hydration.
+
+</div>
+
+</footer>
+
+<canvas id="webgl"></canvas>
+
+<script>
+
+const bubbleContainer=document.getElementById("bubbleBackground");
+
+for(let i=0;i<70;i++){
+
+const b=document.createElement("div");
+
+b.className="bubble";
+
+const size=8+Math.random()*35;
+
+b.style.width=size+"px";
+
+b.style.height=size+"px";
+
+b.style.left=Math.random()*100+"%";
+
+b.style.animationDuration=
+
+8+Math.random()*10+"s";
+
+b.style.animationDelay=
+
+Math.random()*10+"s";
+
+bubbleContainer.appendChild(b);
+
+}
+
+</script>
+
+<script type="module">
+
+import * as THREE from "three";
+import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
+
+/*=============================*/
+/* SCENE */
+/*=============================*/
+
+const scene=new THREE.Scene();
+
+scene.fog=new THREE.Fog(
+0x01253b,
+12,
+40
+);
+
+/*=============================*/
+/* CAMERA */
+/*=============================*/
+
+const camera=new THREE.PerspectiveCamera(
+
+40,
+
+window.innerWidth/window.innerHeight,
+
+0.1,
+
+1000
+
+);
+
+camera.position.set(0,2,9);
+
+/*=============================*/
+/* RENDERER */
+/*=============================*/
+
+const renderer=new THREE.WebGLRenderer({
+
+canvas:document.getElementById("webgl"),
+
+alpha:true,
+
+antialias:true
+
+});
+
+renderer.setPixelRatio(
+
+Math.min(window.devicePixelRatio,2)
+
+);
+
+renderer.setSize(
+
+window.innerWidth,
+
+window.innerHeight
+
+);
+
+renderer.outputColorSpace=
+THREE.SRGBColorSpace;
+
+renderer.setClearColor(0x00111e,0);
+
+/*=============================*/
+/* LIGHTS */
+/*=============================*/
+
+const hemi=
+
+new THREE.HemisphereLight(
+
+0xb9eeff,
+
+0x001322,
+
+2
+
+);
+
+scene.add(hemi);
+
+const sun=
+
+new THREE.DirectionalLight(
+
+0xffffff,
+
+3
+
+);
+
+sun.position.set(
+
+6,
+10,
+6
+
+);
+
+scene.add(sun);
+
+const rim=
+
+new THREE.DirectionalLight(
+
+0x5ad7ff,
+
+4
+
+);
+
+rim.position.set(
+
+-6,
+5,
+-4
+
+);
+
+scene.add(rim);
+
+const glow=
+
+new THREE.PointLight(
+
+0x49d8ff,
+
+20,
+
+40
+
+);
+
+glow.position.set(
+
+0,
+2,
+2
+
+);
+
+scene.add(glow);
+
+/*=============================*/
+/* GROUND */
+/*=============================*/
+
+const ground=
+
+new THREE.Mesh(
+
+new THREE.CircleGeometry(60,120),
+
+new THREE.MeshPhongMaterial({
+
+color:0x002a40,
+
+transparent:true,
+
+opacity:.65
+
+})
+
+);
+
+ground.rotation.x=-Math.PI/2;
+
+ground.position.y=-2;
+
+scene.add(ground);
+
+/*=============================*/
+/* MODEL */
+/*=============================*/
+
+const machine=
+
+new THREE.Group();
+
+scene.add(machine);
+
+const loader=
+
+new GLTFLoader();
+
+let filterModel;
+
+loader.load(
+
+"filter.glb",
+
+(gltf)=>{
+
+filterModel=gltf.scene;
+
+filterModel.scale.set(
+
+0.65,
+0.65,
+0.65
+
+);
+
+filterModel.position.set(
+
+0,
+-0.5,
+0
+
+);
+
+filterModel.rotation.y=Math.PI;
+
+filterModel.traverse(obj=>{
+
+if(obj.isMesh){
+
+obj.castShadow=true;
+
+obj.receiveShadow=true;
+
+}
+
+});
+
+machine.add(filterModel);
+
+}
+
+);
+
+/*=============================*/
+/* PARTICLES */
+/*=============================*/
+
+const particles=[];
+
+const particleGroup=
+
+new THREE.Group();
+
+scene.add(particleGroup);
+
+const geo=
+
+new THREE.SphereGeometry(
+
+0.045,
+
+10,
+
+10
+
+);
+
+const mat=
+
+new THREE.MeshStandardMaterial({
+
+color:0x74e5ff,
+
+emissive:0x42d8ff,
+
+emissiveIntensity:2,
+
+transparent:true,
+
+opacity:.75
+
+});
+
+for(let i=0;i<80;i++){
+
+const p=
+
+new THREE.Mesh(
+
+geo,
+
+mat
+
+);
+
+const r=
+
+6+
+
+Math.random()*8;
+
+const a=
+
+Math.random()*Math.PI*2;
+
+const h=
+
+Math.random()*8-3;
+
+p.position.set(
+
+Math.cos(a)*r,
+
+h,
+
+Math.sin(a)*r
+
+);
+
+particleGroup.add(p);
+
+particles.push({
+
+mesh:p,
+
+radius:r,
+
+angle:a,
+
+speed:.05+
+
+Math.random()*.1
+
+});
+
+}
+
+/*=============================*/
+/* MOUSE */
+/*=============================*/
+
+const mouse={x:0,y:0};
+
+window.addEventListener(
+
+"mousemove",
+
+e=>{
+
+mouse.x=
+
+e.clientX/window.innerWidth-.5;
+
+mouse.y=
+
+e.clientY/window.innerHeight-.5;
+
+}
+
+);
+
+/*=============================*/
+/* SCROLL BLUR */
+/*=============================*/
+
+const heroModel=
+
+document.getElementById("threeContainer");
+
+const cards=
+
+document.querySelector(".cards");
+
+window.addEventListener(
+
+"scroll",
+
+()=>{
+
+const r=
+
+cards.getBoundingClientRect();
+
+if(r.top<250){
+
+heroModel.style.filter="blur(10px)";
+
+heroModel.style.transform="scale(.82)";
+
+heroModel.style.opacity=".35";
+
+}else{
+
+heroModel.style.filter="blur(0px)";
+
+heroModel.style.transform="scale(1)";
+
+heroModel.style.opacity="1";
+
+}
+
+}
+
+);
+
+/*=============================*/
+/* RESIZE */
+/*=============================*/
+
+window.addEventListener(
+
+"resize",
+
+()=>{
+
+camera.aspect=
+
+window.innerWidth/
+
+window.innerHeight;
+
+camera.updateProjectionMatrix();
+
+renderer.setSize(
+
+window.innerWidth,
+
+window.innerHeight
+
+);
+
+}
+
+);
+
+/*=============================*/
+/* ANIMATION */
+/*=============================*/
+
+const clock=
+
+new THREE.Clock();
+
+function animate(){
+
+requestAnimationFrame(
+
+animate
+
+);
+
+const t=
+
+clock.getElapsedTime();
+
+/* Floating */
+
+machine.position.y=
+
+Math.sin(t*1.5)*.18;
+
+machine.rotation.y=
+
+t*.45+
+
+mouse.x*.3;
+
+machine.rotation.x=
+
+mouse.y*.08;
+
+/* Camera */
+
+camera.position.x+=(
+
+mouse.x*2-
+
+camera.position.x
+
+)*.03;
+
+camera.position.y+=(
+
+2+
+
+-mouse.y-
+
+camera.position.y
+
+)*.03;
+
+camera.lookAt(0,0,0);
+
+/* Glow */
+
+glow.intensity=
+
+15+
+
+Math.sin(t*4)*4;
+
+glow.position.y=
+
+2+
+
+Math.sin(t*2)*.4;
+
+/* Floating particles */
+
+particles.forEach(p=>{
+
+p.angle+=
+
+p.speed*.002;
+
+p.mesh.position.x=
+
+Math.cos(
+
+p.angle+t*.2
+
+)*
+
+p.radius;
+
+p.mesh.position.z=
+
+Math.sin(
+
+p.angle+t*.2
+
+)*
+
+p.radius;
+
+p.mesh.position.y+=
+
+Math.sin(
+
+t+p.radius
+
+)*.002;
+
+});
+
+particleGroup.rotation.y+=.0008;
+
+renderer.render(
+
+scene,
+
+camera
+
+);
+
+}
+
+animate();
+
+/*==============================*/
+/* SCROLL REVEAL */
+/*==============================*/
+
+const observer=new IntersectionObserver(entries=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+entry.target.style.opacity="1";
+
+entry.target.style.transform="translateY(0)";
+
+}
+
+});
+
+},{
+threshold:.2
+});
+
+document.querySelectorAll(".productCard").forEach(card=>{
+
+card.style.opacity="0";
+
+card.style.transform="translateY(80px)";
+
+card.style.transition=".9s";
+
+observer.observe(card);
+
+});
+
+/*==============================*/
+/* WATER PULSE */
+/*==============================*/
+
+setInterval(()=>{
+
+if(glow){
+
+glow.intensity=25;
+
+setTimeout(()=>{
+
+glow.intensity=15;
+
+},250);
+
+}
+
+},2500);
+
+/*==============================*/
+/* FLOATING HERO */
+/*==============================*/
+
+gsap.to("#hero",{
+
+y:-20,
+
+duration:4,
+
+repeat:-1,
+
+yoyo:true,
+
+ease:"sine.inOut"
+
+});
+
+</script>
