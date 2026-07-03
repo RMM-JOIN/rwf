@@ -582,7 +582,7 @@ updateWizard();
 emailjs.init("ONdUe5OIMpDIyqoH4");
 
 const EMAIL_SERVICE_ID = "service_uo17wnm";
-const EMAIL_TEMPLATE_ID = "template_ty3bb7l";
+const EMAIL_TEMPLATE_ID = "template_48a04ae";
 
 let sending = false;
 
@@ -634,9 +634,17 @@ function showSuccess(orderID){
 
         <p>
 
-        Order ID
+        Your order has been placed successfully.
 
         <br><br>
+
+        Our team will contact you soon to confirm your order and arrange delivery.
+
+        <br><br>
+
+        <b>Order ID:</b>
+
+        <br>
 
         <b>${orderID}</b>
 
@@ -823,7 +831,10 @@ source:
 form.source.value,
 
 notes:
-form.notes.value
+form.notes.value,
+
+filter_type: 
+form.filter_type.value
 
 };
 
