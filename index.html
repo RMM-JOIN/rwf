@@ -453,71 +453,67 @@ font-weight:900;
 color:#0a6db0;
 
 }
+.buyCard{
 
-/*==========================*/
+margin-top:40px;
 
-#buyPrice{
+padding:35px;
 
-font-size:70px;
+border-radius:25px;
 
-margin-top:25px;
+background:rgba(255,255,255,.12);
+
+border:1px solid rgba(255,255,255,.25);
+
+}
+
+.buyCard h2{
+
+font-size:34px;
+
+color:#0b6eb0;
+
+margin-bottom:20px;
+
+}
+
+.buyPrice{
+
+font-size:46px;
 
 font-weight:900;
 
 color:#009cff;
 
+margin-bottom:25px;
+
 }
 
-/*==========================*/
+.buyButton{
 
-#buyButton{
-
-margin-top:45px;
-
-padding:
-
-22px
-80px;
+padding:18px 60px;
 
 border:none;
 
-border-radius:60px;
+border-radius:50px;
 
-font-size:24px;
+font-size:22px;
 
 font-weight:bold;
 
 cursor:pointer;
 
-background:
-
-linear-gradient(
-
-90deg,
-
-#00b7ff,
-
-#007dff
-
-);
-
 color:white;
 
-box-shadow:
+background:linear-gradient(90deg,#00b7ff,#007dff);
 
-0 15px 35px
-
-rgba(0,150,255,.35);
-
-transition:.35s;
+transition:.3s;
 
 }
 
-#buyButton:hover{
+.buyButton:hover{
 
-transform:
-
-scale(1.05);
+transform:scale(1.05);
 
 }
 
@@ -666,36 +662,6 @@ translateY(0);
 }
 
 }
-
-#themeToggle{
-
-width:48px;
-height:48px;
-
-border-radius:50%;
-
-display:flex;
-justify-content:center;
-align-items:center;
-
-font-size:22px;
-
-cursor:pointer;
-
-background:rgba(255,255,255,.25);
-
-backdrop-filter:blur(20px);
-
-transition:.35s;
-
-}
-
-#themeToggle:hover{
-
-transform:rotate(25deg) scale(1.08);
-
-}
-
 body.dark{
 
 background:
@@ -810,52 +776,69 @@ line-height:1.7;
 }
 
 .videoGrid{
-
 display:grid;
-
-grid-template-columns:repeat(2,1fr);
-
-gap:35px;
-
+grid-template-columns:repeat(auto-fit,minmax(360px,1fr));
+gap:30px;
 margin-bottom:70px;
-
 }
 
 .videoCard{
 
-padding:14px;
-
-border-radius:30px;
-
-background:rgba(255,255,255,.22);
-
-backdrop-filter:blur(20px);
-
-border:1px solid rgba(255,255,255,.45);
-
-box-shadow:0 20px 60px rgba(0,120,255,.10);
-
-transition:.45s;
-
+background:rgba(255,255,255,.12);
+backdrop-filter:blur(25px);
+border:1px solid rgba(255,255,255,.25);
+border-radius:24px;
 overflow:hidden;
+box-shadow:0 20px 50px rgba(0,120,255,.15);
+transition:.35s;
 
 }
 
 .videoCard:hover{
 
-transform:translateY(-12px) scale(1.02);
-
-box-shadow:0 35px 80px rgba(0,170,255,.25);
+transform:translateY(-8px);
+box-shadow:0 30px 70px rgba(0,170,255,.25);
 
 }
 
 .videoCard video{
 
 display:block;
-
 width:100%;
+aspect-ratio:16/9;
+object-fit:cover;
+background:#000;
 
-border-radius:20px;
+}
+
+.videoInfo{
+
+padding:18px;
+
+}
+
+.videoInfo h3{
+
+font-size:20px;
+color:#0b6eb0;
+margin-bottom:8px;
+
+}
+
+.videoInfo p{
+
+font-size:15px;
+color:#4b7393;
+
+}
+
+.videoCategory{
+
+margin:70px 0 30px;
+font-size:34px;
+font-weight:800;
+color:#18a4ff;
+text-align:center;
 
 }
 
@@ -1126,11 +1109,11 @@ nav{
     font-size:38px;
 }
 
-#buyPrice{
+.buyPrice{
     font-size:50px;
 }
 
-#buyButton{
+.buyButton{
     width:100%;
     padding:18px;
     font-size:20px;
@@ -1244,7 +1227,7 @@ Buy
 
 </div>
 
-<div id="themeToggle">☀️</div>
+
 
 </nav>
 
@@ -1367,88 +1350,207 @@ and premium taste.
 
 </section>
 
-<!--==============================-->
+<section id="ionization">
 
-<section id="customerTrust">
+<div class="sectionTitle">
+⚡ Water Ionisation
+</div>
 
-    <div class="sectionTitle">
-        Customer Trust
-    </div>
+<div class="technologyText">
 
-    <p class="trustSubtitle">
-        Trusted by families across India. Watch real customer experiences.
-    </p>
+Unlike ordinary filtration, Kangen Water uses advanced electrolysis to separate acidic and alkaline water.
 
-    <div class="videoGrid">
+The platinum-coated titanium plates create ionized alkaline water rich in active hydrogen while maintaining essential minerals.
 
-        <div class="videoCard">
-            <video controls preload="metadata">
-                <source src="1.mp4" type="video/mp4">
-            </video>
-        </div>
+The result is clean, fresh, mineral-rich water with multiple pH levels for different everyday uses.
 
-        <div class="videoCard">
-            <video controls preload="metadata">
-                <source src="2.mp4" type="video/mp4">
-            </video>
-        </div>
-
-        <div class="videoCard">
-            <video controls preload="metadata">
-                <source src="3.mp4" type="video/mp4">
-            </video>
-        </div>
-
-        <div class="videoCard">
-            <video controls preload="metadata">
-                <source src="4.mp4" type="video/mp4">
-            </video>
-        </div>
-
-    </div>
-
-    <div class="aboutBox">
-
-        <h2>Know More About Us</h2>
-
-        <p>
-            Learn our journey, our technology and why thousands of families trust Kangen Water.
-        </p>
-
-        <a href="about.html" class="aboutButton">
-            Explore →
-        </a>
-
-    </div>
+</div>
 
 </section>
+
+<!--==============================-->
 
 <section id="pricing">
 
 <div id="buySection">
 
 <div id="buyTitle">
-
-Transform
-Your Water
-
+Choose Your Kangen Machine
 </div>
 
-<div id="buyPrice">
+<div class="buyCard">
 
-₹79,999
+<h2>4 Plates Water Filter</h2>
 
+<div class="buyPrice">
+₹2,40,000
 </div>
 
-<div id="buyButtonContainer">
-
-<button id="buyButton" onclick="window.location.href='buy.html'">
-
+<button class="buyButton"
+onclick="window.location.href='details.html'">
 BUY NOW
-
 </button>
 
 </div>
+
+<div class="buyCard">
+
+<h2>7 Plates Water Filter</h2>
+
+<div class="buyPrice">
+₹3,40,000
+</div>
+
+<button class="buyButton"
+onclick="window.location.href='details.html'">
+BUY NOW
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section id="customerTrust">
+
+<div class="sectionTitle">
+    Customer Trust
+</div>
+<p class="trustSubtitle">
+    Trusted by families across India. Watch real customer experiences.
+</p>
+<!-- ================= PRESENTATIONS ================= -->
+
+<div class="videoCategory">📊 PRESENTATIONS</div>
+
+<div class="videoGrid">
+
+<div class="videoCard">
+<video controls preload="metadata">
+<source src="ppt1.mp4" type="video/mp4">
+</video>
+
+<div class="videoInfo">
+<h3>Presentation Video</h3>
+<p>Learn how Kangen Water technology works.</p>
+</div>
+
+</div>
+
+</div>
+
+<!-- ================= PEOPLE'S OPINION ================= -->
+
+<div class="videoCategory">⭐ PEOPLE'S OPINION</div>
+
+<div class="videoGrid">
+
+<div class="videoCard">
+<video controls preload="metadata">
+<source src="1.mp4" type="video/mp4">
+</video>
+<div class="videoInfo">
+<h3>Customer Review #1</h3>
+<p>Real customer experience.</p>
+</div>
+</div>
+
+<div class="videoCard">
+<video controls preload="metadata">
+<source src="2.mp4" type="video/mp4">
+</video>
+<div class="videoInfo">
+<h3>Customer Review #2</h3>
+<p>Real customer experience.</p>
+</div>
+</div>
+
+<div class="videoCard">
+<video controls preload="metadata">
+<source src="3.mp4" type="video/mp4">
+</video>
+<div class="videoInfo">
+<h3>Customer Review #3</h3>
+<p>Real customer experience.</p>
+</div>
+</div>
+
+<div class="videoCard">
+<video controls preload="metadata">
+<source src="4.mp4" type="video/mp4">
+</video>
+<div class="videoInfo">
+<h3>Customer Review #4</h3>
+<p>Real customer experience.</p>
+</div>
+</div>
+
+<div class="videoCard">
+<video controls preload="metadata">
+<source src="5.mp4" type="video/mp4">
+</video>
+<div class="videoInfo">
+<h3>Customer Review #5</h3>
+<p>Real customer experience.</p>
+</div>
+</div>
+
+<div class="videoCard">
+<video controls preload="metadata">
+<source src="6.mp4" type="video/mp4">
+</video>
+<div class="videoInfo">
+<h3>Customer Review #6</h3>
+<p>Real customer experience.</p>
+</div>
+</div>
+
+<div class="videoCard">
+<video controls preload="metadata">
+<source src="7.mp4" type="video/mp4">
+</video>
+<div class="videoInfo">
+<h3>Customer Review #7</h3>
+<p>Real customer experience.</p>
+</div>
+</div>
+
+</div>
+
+<!-- ================= DOCTOR'S RECOMMENDATION ================= -->
+
+<div class="videoCategory">🩺 DOCTOR'S RECOMMENDATION</div>
+
+<div class="videoGrid">
+
+<div class="videoCard">
+<video controls preload="metadata">
+<source src="doctor.mp4" type="video/mp4">
+</video>
+
+<div class="videoInfo">
+<h3>Doctor's Recommendation</h3>
+<p>Professional explanation about healthy drinking water.</p>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="aboutBox">
+
+<h2>Know More About Us</h2>
+
+<p>
+Learn our journey, our technology and why thousands of families trust Kangen Water.
+</p>
+
+<a href="about.html" class="aboutButton">
+Explore →
+</a>
 
 </div>
 
@@ -1463,6 +1565,8 @@ BUY NOW
 </div>
 
 <!--==============================-->
+
+
 
 <canvas id="webgl">
 
@@ -1967,17 +2071,16 @@ Math.random()*100
 
 const clock=
 new THREE.Clock();
-const themeButton = document.getElementById("themeToggle");
 
 const floatingButton = document.getElementById("floatingButton");
 
 floatingButton.onclick = () => {
 
-window.location.href = "buy.html";
+document.getElementById("pricing").scrollIntoView({
+    behavior: "smooth"
+});
 
 };
-
-let darkMode = true;
 /*=========================*/
 
 function animate(){
@@ -2031,16 +2134,8 @@ mouse.y*.08;
 
 
 glow.intensity =
-
-(darkMode ? 10 : 18)
-
-+
-
-Math.sin(t*4)
-
-*
-
-(darkMode ? 3 : 5);
+12 +
+Math.sin(t * 4) * 3;
 
 /* camera */
 camera.position.x=
@@ -2299,55 +2394,11 @@ document
 );
 
 },1700);
-
-
-
-themeButton.onclick = () => {
-
-darkMode = !darkMode;
-
-document.body.classList.toggle("dark");
-
-themeButton.textContent = darkMode ? "☀️" : "🌙";
-
-if(darkMode){
-
-groundMaterial.color.set(0x050505);
-
-renderer.setClearColor(0x03060a,0);
-
-hemi.intensity = 0.45;
-
-sun.intensity = 1.4;
-
-rim.intensity = 2.8;
-
-glow.intensity = 12;
-
-particleMat.emissiveIntensity = 2.5;
-
-}else{
-
-groundMaterial.color.set(0xeaf8ff);
-
-renderer.setClearColor(0x000000,0);
-
-hemi.intensity = 3;
-
-sun.intensity = 5;
-
-rim.intensity = 2.5;
-
-glow.intensity = 20;
-
-particleMat.emissiveIntensity = 1.2;
-
-}
-
-};
 document.getElementById("buyNav").onclick = () => {
 
-window.location.href = "buy.html";
+document.getElementById("pricing").scrollIntoView({
+    behavior: "smooth"
+});
 
 };
 
