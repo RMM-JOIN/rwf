@@ -123,7 +123,8 @@ background:
 rgba(255,255,255,.18);
 
 backdrop-filter:
-blur(16px);
+blur(8px);
+-webkit-backdrop-filter:blur(8px);
 
 border:
 
@@ -708,7 +709,8 @@ body.dark #buySection{
 
 background:rgba(7,15,24,.78);
 
-backdrop-filter:blur(28px);
+backdrop-filter:blur(8px);
+-webkit-backdrop-filter:blur(8px);
 
 border:1px solid rgba(80,180,255,.12);
 
@@ -784,7 +786,8 @@ margin-bottom:70px;
 .videoCard{
 
 background:rgba(255,255,255,.12);
-backdrop-filter:blur(25px);
+backdrop-filter:blur(8px);
+-webkit-backdrop-filter:blur(8px);
 border:1px solid rgba(255,255,255,.25);
 border-radius:24px;
 overflow:hidden;
@@ -859,7 +862,8 @@ rgba(255,255,255,.28),
 rgba(255,255,255,.14)
 );
 
-backdrop-filter:blur(25px);
+backdrop-filter:blur(8px);
+-webkit-backdrop-filter:blur(8px);
 
 border:1px solid rgba(255,255,255,.45);
 
@@ -1127,7 +1131,58 @@ nav{
     padding:18px;
     border-radius:20px;
 }
-}</style>
+}
+/* =========================
+   LOW-END PERFORMANCE MODE
+   ========================= */
+canvas {
+    contain:strict;
+    will-change:transform;
+}
+
+@media (hover:none), (pointer:coarse) {
+    .featureCard:hover,
+    .videoCard:hover,
+    .aboutButton:hover,
+    .buyButton:hover {
+        transform:none !important;
+        box-shadow:inherit;
+    }
+}
+
+@media (prefers-reduced-motion:reduce) {
+    *,*::before,*::after {
+        animation:none !important;
+        transition:none !important;
+        scroll-behavior:auto !important;
+    }
+}
+
+/* Automatically applied by JS on weaker hardware. */
+body.lowPerf nav,
+body.lowPerf .featureCard,
+body.lowPerf #buySection,
+body.lowPerf .videoCard,
+body.lowPerf .aboutBox {
+    backdrop-filter:none !important;
+    -webkit-backdrop-filter:none !important;
+    background:rgba(7,18,30,.92) !important;
+}
+
+body.lowPerf .featureCard:hover,
+body.lowPerf .videoCard:hover {
+    transform:none !important;
+}
+
+body.lowPerf {
+    scroll-behavior:auto;
+}
+
+body.lowPerf canvas {
+    image-rendering:auto;
+}
+
+</style>
 
 <link
 rel="preconnect"
@@ -1141,11 +1196,6 @@ crossorigin>
 <link
 href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap"
 rel="stylesheet">
-
-<script async
-src="https://unpkg.com/es-module-shims@1.10.0/dist/es-module-shims.js">
-</script>
-
 <script type="importmap">
 {
 "imports":{
@@ -1582,855 +1632,416 @@ BUY NOW
 <canvas id="webgl">
 
 </canvas>
-
-<script
-src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js">
-</script>
-
-<script
-src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js">
-</script>
-
 <script type="module">
-
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
+/* =========================================================
+   PERFORMANCE PROFILE
+   ========================================================= */
+const lowEnd =
+    navigator.hardwareConcurrency <= 4 ||
+    (navigator.deviceMemory && navigator.deviceMemory <= 4) ||
+    Math.min(window.devicePixelRatio || 1, 2) > 1.5;
+
+if (lowEnd) document.body.classList.add("lowPerf");
+
+const isMobile = matchMedia("(max-width: 900px)").matches;
+const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* =========================================================
+   THREE.JS SETUP
+   ========================================================= */
+const canvas = document.getElementById("webgl");
+
 const scene = new THREE.Scene();
 
-/*=========================*/
-
-const camera =
-new THREE.PerspectiveCamera(
-
-40,
-
-window.innerWidth/
-window.innerHeight,
-
-0.1,
-
-1000
-
+const camera = new THREE.PerspectiveCamera(
+    40,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    100
 );
+camera.position.set(0, 2, 9);
 
-camera.position.set(
-
-0,
-2,
-9
-
-);
-
-/*=========================*/
-
-const renderer =
-new THREE.WebGLRenderer({
-
-canvas:
-document.getElementById("webgl"),
-
-antialias:true,
-
-alpha:true
-
+const renderer = new THREE.WebGLRenderer({
+    canvas,
+    antialias: !lowEnd,
+    alpha: true,
+    powerPreference: lowEnd ? "low-power" : "high-performance"
 });
 
 renderer.setPixelRatio(
-Math.min(
-window.devicePixelRatio,
-2
-));
-
-renderer.setSize(
-
-window.innerWidth,
-
-window.innerHeight
-
+    lowEnd ? 1 : Math.min(window.devicePixelRatio || 1, 1.5)
 );
+renderer.setSize(window.innerWidth, window.innerHeight, false);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
 
-renderer.outputColorSpace =
-THREE.SRGBColorSpace;
-
-/*=========================*/
-
-const hemi =
-new THREE.HemisphereLight(
-
-0xffffff,
-
-0x8fcfff,
-
-3
-
-);
-
+/* =========================================================
+   LIGHTING — fewer lights, cheaper materials
+   ========================================================= */
+const hemi = new THREE.HemisphereLight(0xffffff, 0x8fcfff, lowEnd ? 1.8 : 2.2);
 scene.add(hemi);
 
-/*=========================*/
-
-const sun =
-new THREE.DirectionalLight(
-
-0xffffff,
-
-5
-
-);
-
-sun.position.set(
-
-8,
-10,
-6
-
-);
-
+const sun = new THREE.DirectionalLight(0xffffff, lowEnd ? 1.5 : 2.4);
+sun.position.set(8, 10, 6);
 scene.add(sun);
 
-/*=========================*/
-
-const rim =
-new THREE.DirectionalLight(
-
-0x7ddcff,
-
-2.5
-
-);
-
-rim.position.set(
-
--6,
-4,
--4
-
-);
-
-scene.add(rim);
-
-/*=========================*/
-/* Blue Glow */
-/*=========================*/
-
-const glow=
-new THREE.PointLight(
-
-0x59d8ff,
-
-20,
-
-30
-
-);
-
-glow.position.set(
-
-0,
-2,
-2
-
-);
-
+const glow = new THREE.PointLight(0x59d8ff, lowEnd ? 7 : 11, 22);
+glow.position.set(0, 2, 2);
 scene.add(glow);
 
-/*=========================*/
-
-const groundMaterial = new THREE.MeshPhongMaterial({
-
-color:0xeaf8ff,
-
-transparent:true,
-
-opacity:.85
-
-});
-
+/* =========================================================
+   GROUND — fewer segments
+   ========================================================= */
 const ground = new THREE.Mesh(
-
-new THREE.CircleGeometry(60,100),
-
-groundMaterial
-
+    new THREE.CircleGeometry(60, lowEnd ? 48 : 64),
+    new THREE.MeshBasicMaterial({
+        color: 0x050505,
+        transparent: true,
+        opacity: .9
+    })
 );
-
-ground.rotation.x = -Math.PI/2;
-
+ground.rotation.x = -Math.PI / 2;
 ground.position.y = -1.6;
-
 scene.add(ground);
 
-/*=========================*/
-
+/* =========================================================
+   WATER MACHINE
+   ========================================================= */
 const machine = new THREE.Group();
 scene.add(machine);
 
 const loader = new GLTFLoader();
-
-let filterModel;
+let filterModel = null;
 
 loader.load(
+    "filter.glb",
+    gltf => {
+        filterModel = gltf.scene;
 
-"filter.glb",
+        filterModel.scale.setScalar(.625);
+        filterModel.position.set(0, -.5, 0);
+        filterModel.rotation.y = Math.PI;
 
-(gltf)=>{
+        filterModel.traverse(child => {
+            if (child.isMesh) {
+                // Shadows were never enabled on the renderer, so avoid
+                // unnecessary per-mesh shadow bookkeeping.
+                child.castShadow = false;
+                child.receiveShadow = false;
 
-filterModel = gltf.scene;
+                if (child.material) {
+                    child.material.needsUpdate = false;
+                }
+            }
+        });
 
-filterModel.scale.set(0.625,0.625,0.625); // adjust
+        machine.add(filterModel);
+    },
+    undefined,
+    err => {
+        console.warn("filter.glb could not be loaded:", err);
+    }
+);
 
-filterModel.position.set(0,-0.5,0);
+/* =========================================================
+   MOUSE — don't force continuous camera work on touch devices
+   ========================================================= */
+let mouseX = 0;
+let mouseY = 0;
 
-filterModel.rotation.y=Math.PI;
-
-filterModel.traverse(child=>{
-
-if(child.isMesh){
-
-child.castShadow=true;
-child.receiveShadow=true;
-
+if (!isMobile) {
+    window.addEventListener("pointermove", e => {
+        mouseX = e.clientX / window.innerWidth - .5;
+        mouseY = e.clientY / window.innerHeight - .5;
+    }, { passive: true });
 }
 
-});
+/* =========================================================
+   LIGHTWEIGHT PARTICLE SYSTEM
+   One Points draw call instead of 70 individual meshes.
+   ========================================================= */
+const particleCount = lowEnd ? 22 : 40;
+const particlePositions = new Float32Array(particleCount * 3);
+const particleData = [];
 
-machine.add(filterModel);
+for (let i = 0; i < particleCount; i++) {
+    const r = 6 + Math.random() * 8;
+    const a = Math.random() * Math.PI * 2;
 
+    particlePositions[i * 3] = Math.cos(a) * r;
+    particlePositions[i * 3 + 1] = Math.random() * 8 - 3;
+    particlePositions[i * 3 + 2] = Math.sin(a) * r;
+
+    particleData.push({
+        radius: r,
+        angle: a,
+        speed: .05 + Math.random() * .12,
+        offset: Math.random() * 100
+    });
 }
 
+const particleGeometry = new THREE.BufferGeometry();
+particleGeometry.setAttribute(
+    "position",
+    new THREE.BufferAttribute(particlePositions, 3)
 );
 
-const mouse={
-
-x:0,
-
-y:0
-
-};
-
-window.addEventListener(
-
-"mousemove",
-
-e=>{
-
-mouse.x=
-
-e.clientX/
-window.innerWidth
--.5;
-
-mouse.y=
-
-e.clientY/
-window.innerHeight
--.5;
-
+const particleMaterial = new THREE.PointsMaterial({
+    color: 0x62d7ff,
+    size: lowEnd ? .055 : .07,
+    transparent: true,
+    opacity: .7,
+    depthWrite: false,
+    sizeAttenuation: true
 });
 
-window.addEventListener(
-
-"resize",
-
-()=>{
-
-camera.aspect=
-window.innerWidth/
-window.innerHeight;
-
-camera.updateProjectionMatrix();
-
-renderer.setSize(
-
-window.innerWidth,
-
-window.innerHeight
-
+const particles = new THREE.Points(
+    particleGeometry,
+    particleMaterial
 );
+scene.add(particles);
 
-});
+/* =========================================================
+   WATER DROPS — one Points draw call
+   ========================================================= */
+const dropCount = lowEnd ? 18 : 30;
+const dropPositions = new Float32Array(dropCount * 3);
+const dropOffsets = new Float32Array(dropCount);
 
-/*=========================*/
-
-/*=========================*/
-/* WATER PARTICLES */
-/*=========================*/
-
-/*================================*/
-/* WATER STREAM */
-/*================================*/
-
-const waterGroup =
-new THREE.Group();
-
-scene.add(waterGroup);
-
-const dropGeo =
-new THREE.SphereGeometry(
-0.035,
-10,
-10
-);
-
-const dropMat =
-new THREE.MeshStandardMaterial({
-
-color:0x7ee8ff,
-
-transparent:true,
-
-opacity:.85,
-
-transmission:1,
-
-roughness:.05,
-
-ior:1.4,
-
-emissive:0x66ddff,
-
-emissiveIntensity:1
-
-});
-
-const waterDrops=[];
-
-for(let i=0;i<50;i++){
-
-const d=
-
-new THREE.Mesh(
-
-dropGeo,
-
-dropMat
-
-);
-
-waterGroup.add(d);
-
-waterDrops.push({
-
-mesh:d,
-
-offset:
-Math.random()*2
-
-});
-
+for (let i = 0; i < dropCount; i++) {
+    dropOffsets[i] = Math.random() * 2.5;
+    dropPositions[i * 3] = 1.92;
+    dropPositions[i * 3 + 1] = 1.55 - Math.random() * 2.5;
+    dropPositions[i * 3 + 2] = .25;
 }
 
-const particleGroup =
-new THREE.Group();
-
-scene.add(
-particleGroup
+const dropGeometry = new THREE.BufferGeometry();
+dropGeometry.setAttribute(
+    "position",
+    new THREE.BufferAttribute(dropPositions, 3)
 );
 
-const particleGeo =
-new THREE.SphereGeometry(
-0.04,
-10,
-10
-);
-
-const particleMat =
-new THREE.MeshStandardMaterial({
-
-color:0x62d7ff,
-
-emissive:0x4dcfff,
-
-emissiveIntensity:1.2,
-
-transparent:true,
-
-opacity:.8,
-
-roughness:.1,
-
-metalness:.2
-
+const dropMaterial = new THREE.PointsMaterial({
+    color: 0x7ee8ff,
+    size: lowEnd ? .08 : .1,
+    transparent: true,
+    opacity: .8,
+    depthWrite: false
 });
 
-const particles=[];
+const waterDrops = new THREE.Points(dropGeometry, dropMaterial);
+scene.add(waterDrops);
 
-/*================================*/
-/* BUBBLES */
-/*================================*/
+/* =========================================================
+   BUBBLES — one Points draw call
+   ========================================================= */
+const bubbleCount = lowEnd ? 10 : 16;
+const bubblePositions = new Float32Array(bubbleCount * 3);
+const bubbleData = [];
 
-const bubbleGroup=
-new THREE.Group();
-
-scene.add(
-bubbleGroup
-);
-
-const bubbleGeo=
-new THREE.SphereGeometry(
-0.05,
-12,
-12
-);
-
-const bubbleMat=
-new THREE.MeshStandardMaterial({
-
-color:0xb8f4ff,
-
-transparent:true,
-
-opacity:.45,
-
-transmission:1,
-
-roughness:0,
-
-ior:1.4
-
-});
-
-const bubbles=[];
-
-for(let i=0;i<25;i++){
-
-const b=
-
-new THREE.Mesh(
-
-bubbleGeo,
-
-bubbleMat
-
-);
-
-bubbleGroup.add(b);
-
-bubbles.push({
-
-mesh:b,
-
-angle:
-Math.random()*6.28,
-
-radius:
-.3+
-Math.random()*.45,
-
-speed:
-.15+
-Math.random()*.3,
-
-height:
-Math.random()*3
-
-});
-
+for (let i = 0; i < bubbleCount; i++) {
+    bubbleData.push({
+        angle: Math.random() * Math.PI * 2,
+        radius: .3 + Math.random() * .45,
+        speed: .15 + Math.random() * .3,
+        height: Math.random() * 3
+    });
 }
 
-for(let i=0;i<70;i++){
-
-const p=
-new THREE.Mesh(
-
-particleGeo,
-
-particleMat
-
+const bubbleGeometry = new THREE.BufferGeometry();
+bubbleGeometry.setAttribute(
+    "position",
+    new THREE.BufferAttribute(bubblePositions, 3)
 );
 
-const r=
-6+Math.random()*8;
-
-const a=
-Math.random()*Math.PI*2;
-
-const h=
-Math.random()*8-3;
-
-p.position.set(
-
-Math.cos(a)*r,
-
-h,
-
-Math.sin(a)*r
-
-);
-
-particleGroup.add(p);
-
-particles.push({
-
-mesh:p,
-
-radius:r,
-
-angle:a,
-
-speed:
-0.05+
-Math.random()*0.12,
-
-offset:
-Math.random()*100
-
+const bubbleMaterial = new THREE.PointsMaterial({
+    color: 0xb8f4ff,
+    size: lowEnd ? .075 : .09,
+    transparent: true,
+    opacity: .5,
+    depthWrite: false
 });
 
-}
+const bubbles = new THREE.Points(
+    bubbleGeometry,
+    bubbleMaterial
+);
+scene.add(bubbles);
 
-const clock=
-new THREE.Clock();
-
+/* =========================================================
+   BUTTON
+   ========================================================= */
 const floatingButton = document.getElementById("floatingButton");
 
 floatingButton.onclick = () => {
-
-document.getElementById("pricing").scrollIntoView({
-    behavior: "smooth"
-});
-
+    document.getElementById("pricing").scrollIntoView({
+        behavior: reducedMotion ? "auto" : "smooth"
+    });
 };
-/*=========================*/
 
-function animate(){
+/* =========================================================
+   RESIZE
+   ========================================================= */
+window.addEventListener("resize", () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
 
-requestAnimationFrame(
-animate
-);
+    renderer.setSize(
+        window.innerWidth,
+        window.innerHeight,
+        false
+    );
+}, { passive: true });
+
+/* =========================================================
+   ANIMATION
+   ========================================================= */
+const clock = new THREE.Clock();
+let lastTime = 0;
 
-const delta=
-clock.getDelta();
+function animate(now) {
+    requestAnimationFrame(animate);
 
-const t=
-clock.getElapsedTime();
+    // Cap simulation to ~30 FPS on weaker devices.
+    if (lowEnd && now - lastTime < 32) return;
+    lastTime = now;
 
-/* floating */
+    const t = clock.getElapsedTime();
 
-machine.position.y=
+    /* Machine */
+    machine.position.y = reducedMotion ? .4 : .4 + Math.sin(t * 1.6) * .12;
+    machine.position.x = reducedMotion ? 0 : Math.sin(t * .8) * .035;
 
-0.4+
+    if (!isMobile && !reducedMotion) {
+        machine.rotation.y = t * .28 + mouseX * .18;
+        machine.rotation.x = mouseY * .05;
+    } else if (!reducedMotion) {
+        machine.rotation.y = t * .18;
+    }
 
-Math.sin(
+    /* Glow */
+    if (!reducedMotion) {
+        glow.intensity =
+            (lowEnd ? 7 : 10) +
+            Math.sin(t * 3) * (lowEnd ? 1 : 2);
 
-t*1.6
+        glow.position.y = 2 + Math.sin(t * 1.5) * .25;
+    }
 
-)
+    /* Particles */
+    if (!reducedMotion) {
+        const pos = particleGeometry.attributes.position.array;
 
-*.18;
+        for (let i = 0; i < particleCount; i++) {
+            const p = particleData[i];
+            p.angle += p.speed * .002;
 
-machine.position.x=
+            pos[i * 3] =
+                Math.cos(p.angle + t * .15) * p.radius;
 
-Math.sin(
+            pos[i * 3 + 2] =
+                Math.sin(p.angle + t * .15) * p.radius;
 
-t*.8
+            pos[i * 3 + 1] =
+                (Math.sin(t * .35 + p.offset) * .8) +
+                (i % 7) - 3;
+        }
 
-)
+        particleGeometry.attributes.position.needsUpdate = true;
+    }
 
-*.05;
+    /* Water */
+    const waterPos = dropGeometry.attributes.position.array;
 
-/* rotation */
+    for (let i = 0; i < dropCount; i++) {
+        const y = 2.1 - ((t * 3 + dropOffsets[i]) % 2.5);
 
-machine.rotation.y=
-t*.45
-+
-mouse.x*.25;
+        waterPos[i * 3] = 1.92;
+        waterPos[i * 3 + 1] = y - .55;
+        waterPos[i * 3 + 2] = .25;
+    }
 
-machine.rotation.x=
-mouse.y*.08;
+    dropGeometry.attributes.position.needsUpdate = true;
 
-/* display pulse */
+    /* Bubbles */
+    if (!reducedMotion) {
+        const bubblePos = bubbleGeometry.attributes.position.array;
 
+        for (let i = 0; i < bubbleCount; i++) {
+            const b = bubbleData[i];
 
+            b.height += b.speed * .008;
+            if (b.height > 3) b.height = 0;
 
-glow.intensity =
-12 +
-Math.sin(t * 4) * 3;
+            bubblePos[i * 3] =
+                1.92 +
+                Math.cos(b.angle + t) * b.radius;
 
-/* camera */
-camera.position.x=
+            bubblePos[i * 3 + 1] =
+                -2.1 + b.height;
 
-Math.sin(
+            bubblePos[i * 3 + 2] =
+                .25 +
+                Math.sin(b.angle + t) * b.radius;
+        }
 
-t*.2
+        bubbleGeometry.attributes.position.needsUpdate = true;
+    }
 
-)
+    /* Camera */
+    if (!reducedMotion) {
+        const targetX = isMobile ? 0 : mouseX * .7;
+        const targetY = isMobile ? 2 : 2 - mouseY * .5;
 
-*.25;
+        camera.position.x +=
+            (targetX - camera.position.x) * .025;
 
-camera.position.z=
+        camera.position.y +=
+            (targetY - camera.position.y) * .025;
+    }
 
-9+
-
-Math.sin(
-
-t*.35
-
-)
-
-*.12;
-
-camera.position.x+=
-
-(mouse.x*2
--camera.position.x)
-
-*.03;
-
-camera.position.y+=
-
-(
-
-2+
-
--mouse.y
-
--camera.position.y
-
-)
-
-*.03;
-
-camera.lookAt(
-
-0,
-0,
-0
-
-);
-
-/*=========================*/
-/* Floating particles */
-/*=========================*/
-
-particles.forEach(p=>{
-
-p.angle+=
-p.speed*0.003;
-
-p.mesh.position.x=
-
-Math.cos(
-
-p.angle+
-t*0.2
-
-)
-
-*
-
-p.radius;
-
-p.mesh.position.z=
-
-Math.sin(
-
-p.angle+
-t*0.2
-
-)
-
-*
-
-p.radius;
-
-p.mesh.position.y+=
-
-Math.sin(
-
-t+
-p.offset
-
-)
-
-*0.0025;
-
-});
-
-/*=========================*/
-/* whole cloud rotates */
-/*=========================*/
-
-particleGroup.rotation.y+=
-
-delta*.18;
-
-particleGroup.rotation.x=
-
-Math.sin(t*.15)
-
-*.04;
-
-/*=========================*/
-
-/*================================*/
-/* WATER FLOW */
-/*================================*/
-
-waterDrops.forEach(
-
-(d,i)=>{
-
-const y=
-
-2.1-
-
-((t*4+d.offset)
-
-%2.5);
-
-d.mesh.position.set(
-
-1.92,
-
-y-.55,
-
-.25
-
-);
-
-});
-
-/*================================*/
-/* BUBBLES */
-/*================================*/
-
-bubbles.forEach(
-
-b=>{
-
-b.height+=
-b.speed*.01;
-
-if(b.height>3){
-
-b.height=0;
-
+    camera.lookAt(0, 0, 0);
+    renderer.render(scene, camera);
 }
 
-b.mesh.position.set(
+requestAnimationFrame(animate);
 
-1.92+
+/* =========================================================
+   FAST LOADER
+   ========================================================= */
+const loaderScreen = document.getElementById("loader");
 
-Math.cos(
+setTimeout(() => {
+    loaderScreen.style.opacity = "0";
+    loaderScreen.style.pointerEvents = "none";
 
-b.angle+t
+    setTimeout(() => {
+        loaderScreen.remove();
+    }, 250);
+}, lowEnd ? 650 : 900);
 
-)
-
-*
-
-b.radius,
-
--2.1+
-
-b.height,
-
-.25+
-
-Math.sin(
-
-b.angle+t
-
-)
-
-*
-
-b.radius
-
-);
-
-});
-
-glow.position.y=
-
-2+
-
-Math.sin(t*2)
-
-*.4;
-
-glow.position.x=
-
-Math.cos(t)
-
-*.35;
-
-renderer.render(
-
-scene,
-
-camera
-
-);
-
-}
-groundMaterial.color.set(0x050505);
-renderer.setClearColor(0x03060a, 0);
-
-hemi.intensity = 0.45;
-sun.intensity = 1.4;
-rim.intensity = 2.8;
-glow.intensity = 12;
-
-particleMat.emissiveIntensity = 2.5;
-
-animate();
-
-/*=========================*/
-
-setTimeout(()=>{
-
-gsap.to(
-
-"#loader",
-
-{
-
-opacity:0,
-
-duration:1,
-
-onComplete(){
-
-document
-.getElementById("loader")
-.remove();
-
-}
-
-}
-
-);
-
-},1700);
+/* =========================================================
+   NAV + FLOATING BUY BUTTON
+   ========================================================= */
 document.getElementById("buyNav").onclick = () => {
-
-document.getElementById("pricing").scrollIntoView({
-    behavior: "smooth"
-});
-
+    document.getElementById("pricing").scrollIntoView({
+        behavior: reducedMotion ? "auto" : "smooth"
+    });
 };
 
 const pricingSection = document.getElementById("pricing");
 
-window.addEventListener("scroll",()=>{
+window.addEventListener("scroll", () => {
+    const rect = pricingSection.getBoundingClientRect();
 
-const rect = pricingSection.getBoundingClientRect();
-
-if(rect.top < window.innerHeight * 0.6){
-
-floatingButton.classList.add("hide");
-
-}else{
-
-floatingButton.classList.remove("hide");
-
-}
-
-});
-
+    if (rect.top < window.innerHeight * .6) {
+        floatingButton.classList.add("hide");
+    } else {
+        floatingButton.classList.remove("hide");
+    }
+}, { passive: true });
 </script>
 
 </body>
