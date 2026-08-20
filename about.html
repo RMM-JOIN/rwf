@@ -541,27 +541,283 @@ font-size:18px;
 }
 
 }
+
+/* =========================================================
+   LOW-END FRIENDLY PREMIUM DESIGN
+   ========================================================= */
+
+html {
+    scroll-behavior:smooth;
+}
+
+body {
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+}
+
+/* Cheap full-screen background: gradients are far cheaper than
+   120 animated DOM bubbles with blur filters. */
+#ocean {
+    position:fixed;
+    inset:0;
+    z-index:-100;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 15% 10%,rgba(255,255,255,.22),transparent 24%),
+        radial-gradient(circle at 85% 30%,rgba(79,210,255,.16),transparent 28%),
+        linear-gradient(180deg,#68d7ff 0%,#278fd8 28%,#07549c 55%,#052d5b 76%,#000814 100%);
+}
+
+.oceanGlow {
+    position:absolute;
+    width:34vw;
+    height:34vw;
+    min-width:220px;
+    min-height:220px;
+    border-radius:50%;
+    pointer-events:none;
+    opacity:.18;
+}
+
+.oceanGlowA {
+    left:-10vw;
+    top:20vh;
+    background:#a7efff;
+}
+
+.oceanGlowB {
+    right:-12vw;
+    top:55vh;
+    background:#1c8fff;
+}
+
+.oceanNoise {
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    opacity:.025;
+    background-image:radial-gradient(rgba(255,255,255,.9) .5px,transparent .5px);
+    background-size:5px 5px;
+}
+
+/* Lightweight glass: no blur on low-end devices. */
+.back,
+.slideContent {
+    backdrop-filter:blur(7px);
+    -webkit-backdrop-filter:blur(7px);
+}
+
+.slide {
+    min-height:auto;
+    padding:55px 0;
+    content-visibility:auto;
+    contain-intrinsic-size:700px;
+    opacity:1;
+    transform:none;
+    filter:none;
+}
+
+/* Reveal with transform/opacity only — never animate blur. */
+.slideContent {
+    position:relative;
+    overflow:hidden;
+    transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;
+    box-shadow:0 22px 55px rgba(0,0,0,.28);
+}
+
+.slideContent::before {
+    display:none;
+}
+
+.slide .text,
+.slide .image {
+    transform:none;
+    opacity:1;
+    transition:none;
+}
+
+.slide.show .text,
+.slide.show .image {
+    transform:none;
+    opacity:1;
+}
+
+.slide.show .image img {
+    animation:none;
+}
+
+.slide.show .slideContent:hover {
+    transform:translateY(-4px);
+    box-shadow:0 30px 65px rgba(0,130,220,.16);
+}
+
+.image img {
+    animation:none;
+    transition:transform .25s ease;
+}
+
+.slide.show .image img:hover {
+    transform:scale(1.02);
+}
+
+/* Better hierarchy */
+.hero {
+    min-height:78vh;
+    position:relative;
+}
+
+.hero::after {
+    content:"";
+    width:min(560px,80vw);
+    height:1px;
+    margin-top:25px;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);
+    box-shadow:0 0 20px rgba(100,220,255,.4);
+}
+
+.hero h1 {
+    animation:none;
+    opacity:1;
+    transform:none;
+    text-shadow:0 12px 40px rgba(0,30,70,.35);
+}
+
+.hero p {
+    animation:none;
+    opacity:1;
+    transform:none;
+}
+
+/* Alternate cards subtly for a more editorial look. */
+.slide:nth-child(even) .slideContent {
+    background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.045));
+}
+
+.slide:nth-child(odd) .slideContent {
+    background:linear-gradient(135deg,rgba(7,42,74,.5),rgba(255,255,255,.055));
+}
+
+.text h2 {
+    line-height:1.12;
+}
+
+.text p {
+    max-width:680px;
+}
+
+/* Make the final CTA feel like a destination. */
+.slide:last-child .slideContent {
+    border-color:rgba(120,230,255,.3);
+    box-shadow:0 30px 90px rgba(0,130,220,.18);
+}
+
+/* Low-end mode: eliminate backdrop-filter and decorative compositing. */
+body.lowPerf .back,
+body.lowPerf .slideContent {
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+    background:rgba(5,25,45,.94);
+}
+
+body.lowPerf .oceanGlow {
+    opacity:.10;
+}
+
+body.lowPerf .oceanNoise {
+    display:none;
+}
+
+body.lowPerf .slide.show .slideContent:hover {
+    transform:none;
+    box-shadow:0 20px 45px rgba(0,0,0,.25);
+}
+
+/* Phones */
+@media(max-width:950px) {
+    .slide {
+        padding:35px 0;
+    }
+
+    .slideContent {
+        padding:30px;
+        border-radius:25px;
+    }
+
+    .hero {
+        min-height:70vh;
+        padding:70px 6%;
+    }
+
+    .hero p {
+        font-size:18px;
+        line-height:1.75;
+    }
+}
+
+@media(max-width:600px) {
+    .back {
+        top:14px;
+        left:14px;
+        padding:10px 17px;
+        font-size:13px;
+    }
+
+    .hero h1 {
+        font-size:clamp(38px,12vw,58px);
+    }
+
+    .hero p {
+        font-size:16px;
+    }
+
+    #presentation {
+        width:calc(100% - 24px);
+    }
+
+    .slideContent {
+        padding:22px;
+        gap:24px;
+        border-radius:21px;
+        box-shadow:0 15px 38px rgba(0,0,0,.25);
+    }
+
+    .text h2 {
+        font-size:30px;
+    }
+
+    .text p {
+        font-size:16px;
+        line-height:1.75;
+    }
+
+    .image img {
+        border-radius:18px;
+    }
+}
+
+/* Respect OS accessibility settings. */
+@media(prefers-reduced-motion:reduce) {
+    html {
+        scroll-behavior:auto;
+    }
+
+    * {
+        animation:none !important;
+        transition:none !important;
+    }
+}
+
 </style>
-
-<script async src="https://unpkg.com/es-module-shims@1.10.0/dist/es-module-shims.js"></script>
-
-<script type="importmap">
-{
-"imports":{
-"three":"https://unpkg.com/three@0.170.0/build/three.module.js",
-"three/addons/":"https://unpkg.com/three@0.170.0/examples/jsm/"
-}
-}
-</script>
-
 </head>
 
 <body>
 <a href="index.html" class="back">← Go Back</a>
 
-<!-- Background Effects -->
+<!-- Lightweight Background -->
 <div id="ocean">
-    <div id="bubbleContainer"></div>
+    <div class="oceanGlow oceanGlowA"></div>
+    <div class="oceanGlow oceanGlowB"></div>
+    <div class="oceanNoise"></div>
 </div>
 
 <div id="overlay">
@@ -598,7 +854,7 @@ Every product is engineered with precision and undergoes strict quality control 
 
 <div class="image">
 
-<img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1200&q=80">
+<img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=900&q=72" loading="eager" decoding="async" fetchpriority="high" alt="Kangen Water technology presentation image 1">
 
 </div>
 
@@ -612,7 +868,7 @@ Every product is engineered with precision and undergoes strict quality control 
 
 <div class="image">
 
-<img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80">
+<img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=72" loading="eager" decoding="async" fetchpriority="auto" alt="Kangen Water technology presentation image 2">
 
 </div>
 
@@ -658,7 +914,7 @@ Modern manufacturing facilities combine automated production with detailed quali
 
 <div class="image">
 
-<img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1200&q=80">
+<img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=900&q=72" loading="lazy" decoding="async" fetchpriority="auto" alt="Kangen Water technology presentation image 3">
 
 </div>
 
@@ -672,7 +928,7 @@ Modern manufacturing facilities combine automated production with detailed quali
 
 <div class="image">
 
-<img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5ce?auto=format&fit=crop&w=1200&q=80">
+<img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5ce?auto=format&fit=crop&w=900&q=72" loading="lazy" decoding="async" fetchpriority="auto" alt="Kangen Water technology presentation image 4">
 
 </div>
 
@@ -718,7 +974,7 @@ This preparation stage improves the quality of the incoming water before ionizat
 
 <div class="image">
 
-<img src="https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=1200&q=80">
+<img src="https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=900&q=72" loading="lazy" decoding="async" fetchpriority="auto" alt="Kangen Water technology presentation image 5">
 
 </div>
 
@@ -732,7 +988,7 @@ This preparation stage improves the quality of the incoming water before ionizat
 
 <div class="image">
 
-<img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=1200&q=80">
+<img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=900&q=72" loading="lazy" decoding="async" fetchpriority="auto" alt="Kangen Water technology presentation image 6">
 
 </div>
 
@@ -778,7 +1034,7 @@ The number and design of the plates contribute to the machine's performance, hel
 
 <div class="image">
 
-<img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80">
+<img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=72" loading="lazy" decoding="async" fetchpriority="auto" alt="Kangen Water technology presentation image 7">
 
 </div>
 
@@ -792,7 +1048,7 @@ The number and design of the plates contribute to the machine's performance, hel
 
 <div class="image">
 
-<img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1200&q=80">
+<img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=72" loading="lazy" decoding="async" fetchpriority="auto" alt="Kangen Water technology presentation image 8">
 
 </div>
 
@@ -838,7 +1094,7 @@ Each part is engineered to work together efficiently, providing smooth operation
 
 <div class="image">
 
-<img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=1200&q=80">
+<img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=900&q=72" loading="lazy" decoding="async" fetchpriority="auto" alt="Kangen Water technology presentation image 9">
 
 </div>
 
@@ -868,7 +1124,7 @@ Changing the mode automatically modifies the electrolysis settings while maintai
 
 <div class="image">
 
-<img src="https://images.unsplash.com/photo-1527169402691-feff5539e52c?auto=format&fit=crop&w=1200&q=80">
+<img src="https://images.unsplash.com/photo-1527169402691-feff5539e52c?auto=format&fit=crop&w=900&q=72" loading="lazy" decoding="async" fetchpriority="auto" alt="Kangen Water technology presentation image 10">
 
 </div>
 
@@ -882,7 +1138,7 @@ Changing the mode automatically modifies the electrolysis settings while maintai
 
 <div class="image">
 
-<img src="https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?auto=format&fit=crop&w=1200&q=80">
+<img src="https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?auto=format&fit=crop&w=900&q=72" loading="lazy" decoding="async" fetchpriority="auto" alt="Kangen Water technology presentation image 11">
 
 </div>
 
@@ -928,7 +1184,7 @@ Its straightforward interface is designed to make selecting different water mode
 
 <div class="image">
 
-<img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80">
+<img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=72" loading="lazy" decoding="async" fetchpriority="auto" alt="Kangen Water technology presentation image 12">
 
 </div>
 
@@ -942,7 +1198,7 @@ Its straightforward interface is designed to make selecting different water mode
 
 <div class="image">
 
-<img src="https://images.unsplash.com/photo-1581092335397-9583eb92d232?auto=format&fit=crop&w=1200&q=80">
+<img src="https://images.unsplash.com/photo-1581092335397-9583eb92d232?auto=format&fit=crop&w=900&q=72" loading="lazy" decoding="async" fetchpriority="auto" alt="Kangen Water technology presentation image 13">
 
 </div>
 
@@ -988,7 +1244,7 @@ This integrated approach reflects the company's emphasis on engineering quality,
 
 <div class="image">
 
-<img src="https://images.unsplash.com/photo-1565060169187-8c6b9f8b78f4?auto=format&fit=crop&w=1200&q=80">
+<img src="https://images.unsplash.com/photo-1565060169187-8c6b9f8b78f4?auto=format&fit=crop&w=900&q=72" loading="lazy" decoding="async" fetchpriority="auto" alt="Kangen Water technology presentation image 14">
 
 </div>
 
@@ -1018,7 +1274,7 @@ Throughout production, each unit passes multiple inspection stages to help ensur
 
 <div class="image">
 
-<img src="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=1200&q=80">
+<img src="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=900&q=72" loading="lazy" decoding="async" fetchpriority="auto" alt="Kangen Water technology presentation image 15">
 
 </div>
 
@@ -1032,7 +1288,7 @@ Throughout production, each unit passes multiple inspection stages to help ensur
 
 <div class="image">
 
-<img src="https://images.unsplash.com/photo-1532187643603-ba119ca4109e?auto=format&fit=crop&w=1200&q=80">
+<img src="https://images.unsplash.com/photo-1532187643603-ba119ca4109e?auto=format&fit=crop&w=900&q=72" loading="lazy" decoding="async" fetchpriority="auto" alt="Kangen Water technology presentation image 16">
 
 </div>
 
@@ -1078,7 +1334,7 @@ Whether helping customers understand the machine's operation or providing routin
 
 <div class="image">
 
-<img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80">
+<img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=72" loading="lazy" decoding="async" fetchpriority="auto" alt="Kangen Water technology presentation image 17">
 
 </div>
 
@@ -1092,7 +1348,7 @@ Whether helping customers understand the machine's operation or providing routin
 
 <div class="image">
 
-<img src="https://images.unsplash.com/photo-1497436072909-f5e4be8f2fc4?auto=format&fit=crop&w=1200&q=80">
+<img src="https://images.unsplash.com/photo-1497436072909-f5e4be8f2fc4?auto=format&fit=crop&w=900&q=72" loading="lazy" decoding="async" fetchpriority="auto" alt="Kangen Water technology presentation image 18">
 
 </div>
 
@@ -1158,7 +1414,7 @@ This approach can contribute to lower plastic waste while offering a convenient 
 
 <div class="image">
 
-<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80">
+<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=72" loading="lazy" decoding="async" fetchpriority="auto" alt="Kangen Water technology presentation image 19">
 
 </div>
 
@@ -1200,7 +1456,7 @@ Explore Products →
 
 <div class="image">
 
-<img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=1200&q=80">
+<img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=900&q=72" loading="lazy" decoding="async" fetchpriority="auto" alt="Kangen Water technology presentation image 20">
 
 </div>
 
@@ -1211,86 +1467,48 @@ Explore Products →
 </main>
 
 </div>
+
+
 <script>
+/* Only observe slides to slightly polish their border state.
+   Content is visible even if JavaScript is disabled or delayed. */
+if ("IntersectionObserver" in window) {
+    const slides = document.querySelectorAll(".slide");
 
-const bubbleContainer=document.getElementById("bubbleContainer");
+    const observer = new IntersectionObserver(entries => {
+        for (const entry of entries) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+                observer.unobserve(entry.target);
+            }
+        }
+    }, {
+        rootMargin:"120px 0px",
+        threshold:.05
+    });
 
-for(let i=0;i<120;i++){
-
-const bubble=document.createElement("div");
-
-bubble.className="bubble";
-
-const size=Math.random()*26+8;
-
-bubble.style.width=size+"px";
-
-bubble.style.height=size+"px";
-
-bubble.style.left=Math.random()*100+"%";
-
-bubble.style.animationDuration=
-Math.random()*12+10+"s";
-
-bubble.style.animationDelay=
--Math.random()*20+"s";
-
-bubble.style.opacity=
-Math.random()*.45+.15;
-
-bubbleContainer.appendChild(bubble);
-
+    slides.forEach(slide => observer.observe(slide));
+} else {
+    document.querySelectorAll(".slide").forEach(slide => slide.classList.add("show"));
 }
-
 </script>
+
 <script>
+/* Adaptive performance profile. No framework required. */
+(() => {
+    const cores = navigator.hardwareConcurrency || 8;
+    const memory = navigator.deviceMemory || 8;
+    const mobile = matchMedia("(max-width: 900px)").matches;
 
-const ocean=document.getElementById("ocean");
-
-window.addEventListener("scroll",()=>{
-
-const p=
-Math.min(
-scrollY/
-(document.body.scrollHeight-innerHeight),
-1
-);
-
-const brightness=
-100-p*55;
-
-ocean.style.filter=
-`brightness(${brightness}%)`;
-
-});
-
+    if (
+        cores <= 4 ||
+        memory <= 4 ||
+        (mobile && cores <= 6)
+    ) {
+        document.body.classList.add("lowPerf");
+    }
+})();
 </script>
-<script>
 
-const slides=document.querySelectorAll(".slide");
-
-const observer=new IntersectionObserver(entries=>{
-
-entries.forEach(entry=>{
-
-if(entry.isIntersecting){
-
-entry.target.classList.add("show");
-
-}
-
-});
-
-},{
-threshold:.35
-});
-
-slides.forEach(slide=>{
-
-observer.observe(slide);
-
-});
-
-</script>
 </body>
 </html>
